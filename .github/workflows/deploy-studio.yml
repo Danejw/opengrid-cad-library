@@ -1,0 +1,69 @@
+name: Deploy openGrid Studio to GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["Build and validate parametric CAD"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: opengrid-studio-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Select a successful source CAD build
+        uses: actions/github-script@v7
+        id: source
+        with:
+          script: |
+            const repo = context.repo;
+            let runId;
+            if (context.eventName === 'workflow_run') {
+              runId = context.payload.workflow_run.id;
+            } else {
+              const { data } = await github.rest.actions.listWorkflowRuns({
+                ...repo,
+                workflow_id: 'build-cad.yml',
+                branch: 'main',
+                status: 'success',
+                per_page: 20,
+              });
+              const candidate = data.workflow_runs.find(run => run.event === 'push');
+              if (!candidate) throw new Error('No successful main-branch CAD build is available. Run the CAD workflow first.');
+              runId = candidate.id;
+            }
+            core.setOutput('run_id', String(runId));
+      - name: Download compiled Studio site
+        uses: actions/download-artifact@v4
+        with:
+          name: opengrid-studio-site
+          run-id: ${{ steps.source.outputs.run_id }}
+          repository: ${{ github.repository }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: site
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+      - name: Deploy site
+        id: deployment
+        uses: actions/deploy-pages@v4
