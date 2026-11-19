@@ -28,7 +28,7 @@ def inspect(path: Path):
         m=m.to_geometry()
     if not isinstance(m,trimesh.Trimesh):
         raise ValueError(f"Not a mesh: {path}")
-    if len(m.vertices)<12 or not m.is_watertight or not m.is_volume or m.volume<=0:
+    if len(m.vertices)<4 or len(m.faces)<4 or not m.is_watertight or not m.is_volume or m.volume<=0:
         raise ValueError(f"Invalid, non-manifold, or zero-volume mesh: {path}")
     bounds=[float(x) for x in m.extents]
     if any(x<=0 or x>=300 for x in bounds):
