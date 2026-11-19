@@ -70,7 +70,7 @@ def build(variant="all", output=None, openscad="openscad", dry_run=False):
             # Ubuntu OpenSCAD 2021 build. These were observed with successful
             # CGAL exports; do not ignore any *other* parser/module warnings.
             import re
-            known = re.compile(r"^WARNING: variable [hv] not specified as parameter in file builtins\\.scad, line \\d+$")
+            known = re.compile(r"^WARNING: variable [hv] not specified as parameter in file builtins[.]scad, line [0-9]+$")
             unexpected = [line for line in result.stderr.splitlines()
                           if ("WARNING:" in line or "ERROR:" in line)
                           and not known.match(line.strip())]
