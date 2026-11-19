@@ -1,0 +1,20 @@
+{
+  "library_name": "openGrid Physical Systems Starter Library",
+  "version": "0.1.0",
+  "coordinate_units": "inch",
+  "cad_internal_units": "millimeter",
+  "grid_pitch_mm": 28.0,
+  "grid_pitch_inches": 1.1023622047244095,
+  "gridfinity_pitch_mm": 42.0,
+  "board_thickness_mm": {"lite": 4.0, "full": 6.8},
+  "print_bed_inches": {"bambu_a1": [10.08,10.08], "bambu_a1_mini": [7.09,7.09]},
+  "safe_default_tile_cells": {"bambu_a1": [8,8], "bambu_a1_mini": [6,6]},
+  "wall_sizes_inches": [
+    {"name": "Wall A", "width": 64, "height": 64},
+    {"name": "Wall B", "width": 54, "height": 60}
+  ],
+  "mounting_interface_status": "GRID_PITCH_VERIFIED__SNAP_GEOMETRY_UPSTREAM_ONLY",
+  "native_snap_source": "https://www.opengrid.world/guides/modeling/",
+  "snap_use_policy": "Use exact publisher-authored bare snap/slot geometry for every real mating face. Do not infer snap profiles from rectangular hole approximations.",
+  "grid_density_inches_per_cell": 1.1023622047244095
+}
