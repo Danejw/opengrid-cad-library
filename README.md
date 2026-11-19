@@ -56,6 +56,18 @@ Open [GitHub Actions](https://github.com/Danejw/opengrid-cad-library/actions/wor
 
 You can also run the Quick start commands locally to regenerate the exact outputs. Generated exports are not committed as binaries so changes to the source remain reproducible and the repository stays lightweight.
 
+## AI engineering skills and MCP software
+
+This repository includes task-activated engineering skills in [`.agents/skills/`](.agents/skills), including parametric CAD, mechanical design, manufacturing, tolerance analysis, physical-interface validation, and an **openGrid interface engineering** skill.
+
+The recommended design-to-print workflow is: **CadQuery → CAD/mesh checks → Bambu Studio slicer → physical test → reusable verified component**. Optional connected backends include the **official Autodesk Fusion desktop/Compute MCP** for native CAD editing and the **official OrcaSlicer MCP skill** for an MCP-enabled slicer. These software tools are **not automatically installed or connected** by copying skills.
+
+- [Skill routing and triggers](docs/SKILL_ROUTER.md)
+- [MCP integration architecture and setup](docs/MCP_INTEGRATIONS.md)
+- [Third-party skill sources and license notices](docs/THIRD_PARTY_SKILLS.md)
+- [Cursor Fusion MCP configuration template](config/mcp.cursor.example.json)
+- [openGrid connector engineering skill](.agents/skills/opengrid-interface-engineering/SKILL.md)
+
 ## Design principles
 
 1. **One reusable grid:** Keep all mounting cell centers at 28 mm increments, even in crates, shelves, desk accessories, and walls.

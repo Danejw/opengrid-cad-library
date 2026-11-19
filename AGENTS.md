@@ -33,3 +33,13 @@ Name objects `{system}-{function}-{version}`, e.g. `og-tray-v1`; name separate a
 3. Desk tray and crate; verify straightforward independent printing.
 4. Add native snap/slot to a copy of `adapter_blank.step`, validate fit, and save that as the first approved reusable mating interface.
 5. Reuse the approved interface on shelf, closet organizers, underdesk accessories, and future AI-generated objects.
+
+## Skills and MCP tool selection
+
+Before starting a specialized engineering task, see `docs/SKILL_ROUTER.md` and read the smallest relevant `.agents/skills/<name>/SKILL.md`. The repository contains upstream mechanical skills, the official OrcaSlicer MCP skill instructions, an upstream skill-creator, and project-specific skills for openGrid, Fusion MCP, Bambu Studio, FreeCAD/OpenSCAD, and mesh validation.
+
+**Skills teach methods; MCP provides actions; installed applications execute them.** Confirm a tool is available and authorized before claiming to have used it. The recommended system architecture and official integrations are documented in `docs/MCP_INTEGRATIONS.md`.
+
+For openGrid connector work, **always** load `opengrid-interface-engineering`, use exact upstream geometry, and collect real-world fit evidence. For any 3D-print job, use `mesh-validation` and the applicable slicer skill. Never start a print or use a paid cloud backend without explicit authorization for that action.
+
+Vendored skills retain their upstream licenses; see `docs/THIRD_PARTY_SKILLS.md`. Independently review third-party executable scripts before running them. Don't automatically load or execute every skill.

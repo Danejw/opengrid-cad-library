@@ -1,0 +1,41 @@
+{
+  "interface_id": "og-example-unverified-v1",
+  "status": {
+    "cad_valid": false,
+    "slicer_verified": false,
+    "fit_verified": false,
+    "load_tested": false
+  },
+  "upstream": {
+    "url": "",
+    "revision": "",
+    "license": "",
+    "geometry_file": ""
+  },
+  "interface": {
+    "board_variant": "unknown",
+    "connector_type": "unknown",
+    "cell_pitch_in": 1.1023622047244095
+  },
+  "printer": {
+    "name": "",
+    "nozzle_in": null,
+    "filament_material": "",
+    "slicer_profile": "",
+    "orientation": ""
+  },
+  "measured": {
+    "insertion_clearance_in": null,
+    "removal_cycles": 0,
+    "load_lbs": null,
+    "filament_used_lbs": null
+  },
+  "evidence": {
+    "source_cad": "",
+    "slice_preview": "",
+    "test_photos": [],
+    "notes": ""
+  },
+  "test_date": "",
+  "tested_by": ""
+}
