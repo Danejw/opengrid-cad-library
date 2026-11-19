@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0.0",
+  "system": "openGrid + openConnect",
+  "grid_pitch_mm": 28,
+  "upstream": {
+    "repository": "mitufy/opengrid-projects",
+    "source_url": "https://github.com/mitufy/opengrid-projects",
+    "license": "CC BY 4.0 (attribution required)"
+  },
+  "dependency": {
+    "name": "BOSL2",
+    "repository": "BelfrySCAD/BOSL2",
+    "commit": "1351a9f7e5f30a95228e580d167fd4f2e184ad2c"
+  },
+  "components": [
+    {
+      "id": "og-oc-snap-lite-v1",
+      "renderer": "opengrid_openconnect_snap_lite.stl",
+      "board_variant": "Lite",
+      "snap_thickness_mm": 4,
+      "connector": "openConnect",
+      "native_source": "opengrid_parametric_snap.scad",
+      "fit_verified": false,
+      "load_tested": false,
+      "status": "source_pinned"
+    },
+    {
+      "id": "og-oc-snap-full-v1",
+      "renderer": "opengrid_openconnect_snap_full.stl",
+      "board_variant": "Full",
+      "snap_thickness_mm": 6.8,
+      "connector": "openConnect",
+      "native_source": "opengrid_parametric_snap.scad",
+      "fit_verified": false,
+      "load_tested": false,
+      "status": "source_pinned"
+    },
+    {
+      "id": "og-oc-receiver-2x1-v1",
+      "renderer": "opengrid_openconnect_receiver_2x1.stl",
+      "board_variant": "both_unverified",
+      "cells": [
+        2,
+        1
+      ],
+      "connector": "openConnect",
+      "native_source": "openconnect_plate.scad",
+      "fit_verified": false,
+      "load_tested": false,
+      "status": "source_pinned"
+    }
+  ]
+}
