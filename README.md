@@ -19,7 +19,7 @@ This distinction prevents future AI agents from inventing incompatible "openGrid
 | `docs/INTERFACES.md` | Genuine upstream connector integration instructions | Markdown | Source links and validation gates |
 | `AGENTS.md` | Rules for AI/CAD agents building new modules | Markdown | Reuse contracts and safety gates |
 
-All examples fit within **7.1 × 7.1 inches** in plan, so they fit both the A1 and A1 Mini build plates by nominal dimensions. Confirm actual clearances in your slicer. The tray and crate are one-piece models. Build parts are supplied in STEP for editing and STL for slicing.
+All examples fit within **7.1 × 7.1 inches** in plan, so they fit both the A1 and A1 Mini build plates by nominal dimensions. Confirm actual clearances in your slicer. The tray and crate are one-piece models. Editable STEP and printable STL files are generated from the source code, or downloaded as artifacts from a successful GitHub Actions build.
 
 ## Quick start
 
@@ -45,6 +45,13 @@ Open the exported `.step` files in Fusion or other STEP-aware CAD. Use Bambu Stu
 All coverage dimensions refer to grid spacing with the wall's lower-left origin. Center the completed grid to distribute the border equally if preferred. This is **tile planning**, not a final count of screws, printed connectors, plastic weight, or required structural fasteners. Generate wall panels from the **official** openGrid tile generator and verify exact exterior dimensions before printing all tiles.
 
 The A1 can nominally fit 9 × 9 cells (9.92 × 9.92 inches), but that leaves almost no margin; the default is conservative **8 × 8 cells (8.82 × 8.82 inches)**. A1 Mini default: **6 × 6 cells (6.61 × 6.61 inches)**.
+
+
+## Get print-ready exports from GitHub
+
+Open [GitHub Actions](https://github.com/Danejw/opengrid-cad-library/actions/workflows/build-cad.yml) and select a successful **Build and validate parametric CAD** run. Download the `opengrid-cad-library-v0.1-exports` artifact. It includes four prototype STL/STEP pairs plus layouts for both walls and both printer sizes.
+
+You can also run the Quick start commands locally to regenerate the exact outputs. Generated exports are not committed as binaries so changes to the source remain reproducible and the repository stays lightweight.
 
 ## Design principles
 
