@@ -29,7 +29,8 @@ def profile_commands(variant: str):
                     "snap_body_shape": "Directional",
                     "generate_snap": "openConnect",
                     "generate_screw": "None",
-                    "view_cross_section": "None"
+                    "view_cross_section": "None",
+                    "text_depth": 0
                 },
             ))
     commands.append((
