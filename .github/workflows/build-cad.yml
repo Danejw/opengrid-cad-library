@@ -5,6 +5,22 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+    inputs:
+      hook_length_in:
+        description: "Cable hook peg length in inches"
+        required: false
+        default: '0.75'
+        type: string
+      hook_diameter_in:
+        description: "Cable hook peg diameter in inches"
+        required: false
+        default: '0.30'
+        type: string
+      hook_lip_in:
+        description: "Cable hook retaining lip diameter in inches"
+        required: false
+        default: '0.50'
+        type: string
 
 permissions:
   contents: read
@@ -50,8 +66,12 @@ jobs:
           python cad/opengrid/generate_interfaces.py --variant all --openscad "$OPENSCAD_BIN"
           python cad/opengrid/validate_interfaces.py
       - name: Phase 2 - generate and validate cable hook accessory
+        env:
+          HOOK_LENGTH: ${{ github.event.inputs.hook_length_in || '0.75' }}
+          HOOK_DIAMETER: ${{ github.event.inputs.hook_diameter_in || '0.30' }}
+          HOOK_LIP: ${{ github.event.inputs.hook_lip_in || '0.50' }}
         run: |
-          python cad/opengrid/generate_accessory.py --openscad "$OPENSCAD_BIN"
+          python cad/opengrid/generate_accessory.py --openscad "$OPENSCAD_BIN" --stem-length-in "$HOOK_LENGTH" --stem-diameter-in "$HOOK_DIAMETER" --lip-diameter-in "$HOOK_LIP"
           python cad/opengrid/validate_accessory.py
       - name: Phase 3 - verify meshes and publish visual previews
         run: python cad/opengrid/release_pipeline.py --openscad "$OPENSCAD_BIN"
@@ -62,6 +82,26 @@ jobs:
           name: diagnostic-unverified-geometry
           path: output/
           if-no-files-found: ignore
+      - name: Prepare browser-ready CAD assets
+        run: python scripts/build_site_assets.py --revision "$GITHUB_SHA"
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Studio dependencies
+        run: npm install --prefix web --no-audit --no-fund
+      - name: Type-check and build Studio
+        run: npm run build --prefix web
+      - name: Create Pages no-Jekyll marker
+        run: touch web/dist/.nojekyll
+      - name: Validate published Studio assets
+        run: python scripts/check_site.py --dist web/dist
+      - name: Upload Studio site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: opengrid-studio-site
+          path: web/dist/
+          if-no-files-found: error
       - name: Upload downloadable CAD models
         uses: actions/upload-artifact@v4
         with:
