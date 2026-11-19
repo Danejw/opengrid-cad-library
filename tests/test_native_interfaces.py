@@ -33,8 +33,8 @@ def test_full_lite_and_receiver_are_present():
     profiles={filename:params for filename,_,params in configs}
     assert profiles["opengrid_openconnect_snap_lite.stl"]["snap_thickness"]==4.0
     assert profiles["opengrid_openconnect_snap_full.stl"]["snap_thickness"]==6.8
-    assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_horizontal_size"]==2
-    assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_vertical_size"]==1
+    assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_horizontal_size"]==70
+    assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_vertical_size"]==42
 
 def test_interfaces_unverified_until_physical_test():
     x=json.loads((ROOT/"config"/"interfaces.json").read_text())

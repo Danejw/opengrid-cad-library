@@ -47,7 +47,15 @@
       "native_source": "openconnect_plate.scad",
       "fit_verified": false,
       "load_tested": false,
-      "status": "source_pinned"
+      "status": "source_pinned",
+      "plate_external_mm": [
+        70,
+        42
+      ],
+      "plate_edge_margin_mm_approx": [
+        7,
+        7
+      ]
     }
   ]
 }

@@ -36,10 +36,10 @@ def profile_commands(variant: str):
     commands.append((
         "opengrid_openconnect_receiver_2x1.stl",
         RECEIVER, {
-            "plate_size_unit": "grid",
-            "plate_horizontal_size": 2,
-            "plate_vertical_size": 1,
-            "plate_extra_thickness": 1.2,
+            "plate_size_unit": "mm",
+            "plate_horizontal_size": 70,
+            "plate_vertical_size": 42,
+            "plate_extra_thickness": 2.0,
             "slot_type": "slot",
             "slot_position": "All",
             "slot_lock_distribution": "Corners",

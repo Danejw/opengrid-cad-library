@@ -15,14 +15,14 @@ $fn = 64;
 assert(receiver_file != "", "Pass the generated upstream receiver STL using -D receiver_file");
 
 module cable_hook() {
-    // The upstream receiver is 2 x 1 28 mm grid cells with its plate at z>=0.
+    // The upstream receiver has 2 x 1 native slots centered on 28 mm pitch,\n    // in a 70 x 42 mm support plate at z>=0.
     // A 0.8 mm overlap fuses the peg into the back, leaving receiver slots
     // in their untouched upstream geometry.
     union() {
         import(receiver_file, convexity=10);
-        translate([28, 14, -stem_length_mm])
+        translate([35, 21, -stem_length_mm])
             cylinder(d=stem_diameter_mm, h=stem_length_mm+0.8);
-        translate([28, 14, -stem_length_mm-lip_height_mm])
+        translate([35, 21, -stem_length_mm-lip_height_mm])
             cylinder(d1=lip_diameter_mm,d2=stem_diameter_mm,h=lip_height_mm);
     }
 }

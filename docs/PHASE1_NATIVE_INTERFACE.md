@@ -4,7 +4,7 @@
 
 - Original source: [mitufy/opengrid-projects](https://github.com/mitufy/opengrid-projects). openGrid created by David D, openConnect library and parametric generator by mitufy, published under Creative Commons Attribution 4.0. The six unchanged source files live in `vendor/mitufy-opengrid/`; see their Git blob hashes in `tests/test_native_interfaces.py`.
 - Dependency: BOSL2, pinned to git revision `1351a9f7e5f30a95228e580d167fd4f2e184ad2c` in GitHub Actions.
-- Renderer: OpenSCAD; variants `Full` (6.8 mm native source thickness) and `Lite` (4 mm), plus a **2 × 1 cell receiving plate**. The fixture is for *openConnect*, which combines a native snap and accessory attachment head.
+- Renderer: OpenSCAD; variants `Full` (6.8 mm native source thickness) and `Lite` (4 mm), plus a **2 × 1 cell native receiving slot layout on a 70 × 42 mm (approximately 2.76 × 1.65 in) plate**. The fixture is for *openConnect*, which combines a native snap and accessory attachment head.
 - Generated files: `output/interfaces/` contains STL variants, generated command manifest, and mesh verification JSON if the build succeeds.
 
 **Setup:** Install OpenSCAD and BOSL2 so `include <BOSL2/std.scad>` resolves, or use the CI job. From the repo root:

@@ -2,7 +2,7 @@
 
 This is the first **functional accessory** for the library. It uses a native upstream **2 × 1-cell openConnect receiving plate** from Phase 1 as the actual mating surface. A lightweight cable-hanging peg is fused to its opposite side in editable OpenSCAD source.
 
-Approximate dimensions: a 2.20-inch × 1.10-inch native receiver, plus a 0.75-inch peg with a 0.50-inch retaining lip. Exact STL geometry is machine-generated and verified in CI.
+Approximate dimensions: a 2.76-inch × 1.65-inch native receiver carrying 2 × 1 openConnect slot positions, plus a 0.75-inch peg with a 0.50-inch retaining lip. Exact STL geometry is machine-generated and verified in CI.
 
 ## Generate
 
