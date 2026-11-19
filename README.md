@@ -81,6 +81,12 @@ The recommended design-to-print workflow is: **CadQuery → CAD/mesh checks → 
 - [Cursor Fusion MCP configuration template](config/mcp.cursor.example.json)
 - [openGrid connector engineering skill](.agents/skills/opengrid-interface-engineering/SKILL.md)
 
+## Engineering preflight and visual previews (Phase 3)
+
+The pipeline generates [a machine-readable engineering report](docs/PHASE3_PIPELINE.md) and PNG previews for every prototype. The GitHub Actions artifact includes the source-driven STL/STEP exports, preflight results and preview images.
+
+The project deliberately does **not** claim slicer compatibility, print success, or physical connector-fit verification without evidence.
+
 ## Design principles
 
 1. **One reusable grid:** Keep all mounting cell centers at 28 mm increments, even in crates, shelves, desk accessories, and walls.

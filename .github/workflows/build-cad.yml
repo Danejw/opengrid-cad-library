@@ -53,6 +53,8 @@ jobs:
         run: |
           python cad/opengrid/generate_accessory.py --openscad "$OPENSCAD_BIN"
           python cad/opengrid/validate_accessory.py
+      - name: Phase 3 - verify meshes and publish visual previews
+        run: python cad/opengrid/release_pipeline.py --openscad "$OPENSCAD_BIN"
       - name: Upload downloadable CAD models
         uses: actions/upload-artifact@v4
         with:
