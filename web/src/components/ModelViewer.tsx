@@ -26,25 +26,46 @@ class ModelErrorBoundary extends Component<{
   }
 }
 
-function DisplayObject({ model, wireframe }: { model: StudioModel; wireframe: boolean }) {
+function DisplayObject({ model, wireframe, lightMode }: {
+  model: StudioModel;
+  wireframe: boolean;
+  lightMode: boolean;
+}) {
   const { scene } = useGLTF(assetUrl(model.model));
+
+  // A softly emissive, matte CAD material guarantees legible color even on
+  // mobile GPUs where a face receives very little direct illumination.
+  const material = useMemo(() => {
+    const color = new THREE.Color(model.accent);
+    if (lightMode) color.lerp(new THREE.Color('#2b4c55'), 0.2);
+    return new THREE.MeshStandardMaterial({
+      color,
+      emissive: color,
+      emissiveIntensity: 0.24,
+      metalness: 0.04,
+      roughness: 0.58,
+      wireframe,
+      side: THREE.DoubleSide,
+    });
+  }, [lightMode, model.accent, wireframe]);
+
+  useEffect(() => () => material.dispose(), [material]);
+
   const object = useMemo(() => {
     const clone = scene.clone(true);
     clone.traverse((node) => {
       if (node instanceof THREE.Mesh) {
-        node.material = new THREE.MeshStandardMaterial({
-          color: new THREE.Color(model.accent),
-          metalness: 0.13,
-          roughness: 0.43,
-          wireframe,
-          side: THREE.DoubleSide,
-        });
-        node.castShadow = true;
-        node.receiveShadow = true;
+        // GLB exports may omit NORMAL; compute it once on the shared geometry.
+        if (!node.geometry.getAttribute('normal')) node.geometry.computeVertexNormals();
+        node.material = material;
+        // CAD inspection needs consistent visibility, even on back-facing parts.
+        node.castShadow = false;
+        node.receiveShadow = false;
       }
     });
     return clone;
-  }, [scene, model.accent, wireframe]);
+  }, [scene, material]);
+
   // Trimesh exports preserve millimetres and Z-up. Rotate to Three.js Y-up.
   return <Center><group rotation={[-Math.PI / 2, 0, 0]}><primitive object={object} /></group></Center>;
 }
@@ -82,7 +103,7 @@ function CameraPosition({ model, view, resetVersion }: {
 }
 
 export default function ModelViewer({
-  model, wireframe, grid, view, resetVersion, rotating, onFailure,
+  model, wireframe, grid, view, resetVersion, rotating, lightMode, onFailure,
 }: {
   model: StudioModel;
   wireframe: boolean;
@@ -90,6 +111,7 @@ export default function ModelViewer({
   view: ViewDirection;
   resetVersion: number;
   rotating: boolean;
+  lightMode: boolean;
   onFailure: (error: string) => void;
 }) {
   return (
@@ -100,14 +122,18 @@ export default function ModelViewer({
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       aria-label={`Interactive 3D model of ${model.name}. Drag to orbit and scroll or pinch to zoom.`}
     >
-      <ambientLight intensity={1.45} />
-      <hemisphereLight intensity={1.55} groundColor="#1b272b" color="#f7f5eb" />
-      <directionalLight position={[100, 150, 100]} intensity={2.7} color="#fffaf0" />
-      <directionalLight position={[-100, 70, -100]} intensity={0.8} color="#9ceee3" />
-      {grid && <gridHelper args={[400, 40, '#33535b', '#243940']} position={[0, -Math.max(...model.boundsInches) * 25.4 * 0.58, 0]} />}
+      <ambientLight intensity={0.95} />
+      <hemisphereLight intensity={1.55} groundColor={lightMode ? '#829d9c' : '#3d5b62'} color="#fffaf4" />
+      <directionalLight position={[120, 170, 130]} intensity={3} color="#fff6e9" />
+      <directionalLight position={[-140, 85, -95]} intensity={1.5} color="#b9e5ff" />
+      <directionalLight position={[50, -100, -140]} intensity={0.8} color="#d3fff1" />
+      {grid && <gridHelper
+        args={[400, 40, lightMode ? '#94b3b1' : '#476872', lightMode ? '#c1d2d0' : '#2a454f']}
+        position={[0, -Math.max(...model.boundsInches) * 25.4 * 0.58, 0]}
+      />}
       <ModelErrorBoundary key={model.id} onFailure={onFailure}>
         <Suspense fallback={<Html center><div className="scene-loader">Loading geometry…</div></Html>}>
-          <DisplayObject model={model} wireframe={wireframe} />
+          <DisplayObject model={model} wireframe={wireframe} lightMode={lightMode} />
         </Suspense>
       </ModelErrorBoundary>
       <CameraPosition model={model} view={view} resetVersion={resetVersion} />

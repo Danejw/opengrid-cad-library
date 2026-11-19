@@ -221,7 +221,7 @@ export default function App() {
         <div className="viewer-title"><div><h1>{model.name}</h1><p>{model.tagline}</p></div><button type="button" className="mobile-inspector-link secondary-action" onClick={() => setDetailsOpen(true)}><SlidersHorizontal size={16}/> Details</button></div>
         <div className="viewer-stage">
           {viewerError ? <div className="viewer-failure"><Info size={30}/><strong>3D preview unavailable</strong><p>The validated model file is still available for download. {viewerError}</p><button type="button" className="secondary-action" onClick={() => { setViewerError(null); setResetVersion(x => x + 1); }}>Retry 3D view</button></div> :
-            <ModelViewer model={model} wireframe={wireframe} grid={grid} rotating={rotating} view={view} resetVersion={resetVersion} onFailure={setViewerError}/>}
+            <ModelViewer model={model} wireframe={wireframe} grid={grid} rotating={rotating} view={view} resetVersion={resetVersion} lightMode={lightMode} onFailure={setViewerError}/>}
           <div className="stage-corner-top"><span className="status-capsule"><span className="success-dot"/> CAD VALID</span></div>
           <div className="axis-label"><span className="axis-y">Y</span><span className="axis-x">X</span><span className="axis-z">Z</span></div>
           <div className="stage-corner-bottom"><span><Orbit size={15}/> Drag to orbit</span><span>Scroll or pinch to zoom</span></div>
