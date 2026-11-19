@@ -1,0 +1,117 @@
+import { Component, Suspense, useEffect, useMemo, type ReactNode } from 'react';
+import { Canvas, useThree } from '@react-three/fiber';
+import { Center, Html, OrbitControls, useGLTF } from '@react-three/drei';
+import * as THREE from 'three';
+import type { StudioModel } from '../data/types';
+import { assetUrl } from '../data/types';
+
+export type ViewDirection = 'iso' | 'front' | 'top' | 'right';
+
+class ModelErrorBoundary extends Component<{
+  children: ReactNode;
+  onFailure: (error: string) => void;
+}, { failed: boolean }> {
+  constructor(props: { children: ReactNode; onFailure: (error: string) => void }) {
+    super(props);
+    this.state = { failed: false };
+  }
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true };
+  }
+  componentDidCatch(error: Error): void {
+    this.props.onFailure(error.message);
+  }
+  render(): ReactNode {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
+function DisplayObject({ model, wireframe }: { model: StudioModel; wireframe: boolean }) {
+  const { scene } = useGLTF(assetUrl(model.model));
+  const object = useMemo(() => {
+    const clone = scene.clone(true);
+    clone.traverse((node) => {
+      if (node instanceof THREE.Mesh) {
+        node.material = new THREE.MeshStandardMaterial({
+          color: new THREE.Color(model.accent),
+          metalness: 0.13,
+          roughness: 0.43,
+          wireframe,
+          side: THREE.DoubleSide,
+        });
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+    });
+    return clone;
+  }, [scene, model.accent, wireframe]);
+  // Trimesh exports preserve millimetres and Z-up. Rotate to Three.js Y-up.
+  return <Center><group rotation={[-Math.PI / 2, 0, 0]}><primitive object={object} /></group></Center>;
+}
+
+function CameraPosition({ model, view, resetVersion }: {
+  model: StudioModel;
+  view: ViewDirection;
+  resetVersion: number;
+}) {
+  const { camera, controls, invalidate } = useThree();
+  useEffect(() => {
+    const maxMM = Math.max(...model.boundsInches) * 25.4;
+    const distance = Math.max(20, maxMM * 2.45);
+    camera.up.set(0, 1, 0);
+    if (view === 'top') {
+      camera.position.set(0.01, distance, 0);
+      camera.up.set(0, 0, -1);
+    } else if (view === 'front') {
+      camera.position.set(0, 0, distance);
+    } else if (view === 'right') {
+      camera.position.set(distance, 0, 0);
+    } else {
+      camera.position.set(distance * 0.82, distance * 0.66, distance * 0.92);
+    }
+    camera.lookAt(0, 0, 0);
+    camera.updateProjectionMatrix();
+    if (controls && 'target' in controls && 'update' in controls) {
+      const orbit = controls as unknown as { target: THREE.Vector3; update: () => void };
+      orbit.target.set(0, 0, 0);
+      orbit.update();
+    }
+    invalidate();
+  }, [camera, controls, invalidate, model.id, model.boundsInches, resetVersion, view]);
+  return null;
+}
+
+export default function ModelViewer({
+  model, wireframe, grid, view, resetVersion, rotating, onFailure,
+}: {
+  model: StudioModel;
+  wireframe: boolean;
+  grid: boolean;
+  view: ViewDirection;
+  resetVersion: number;
+  rotating: boolean;
+  onFailure: (error: string) => void;
+}) {
+  return (
+    <Canvas
+      key={model.id}
+      camera={{ fov: 42, near: 0.1, far: 4000, position: [150, 125, 165] }}
+      dpr={[1, 1.65]}
+      gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      aria-label={`Interactive 3D model of ${model.name}. Drag to orbit and scroll or pinch to zoom.`}
+    >
+      <ambientLight intensity={1.45} />
+      <hemisphereLight intensity={1.55} groundColor="#1b272b" color="#f7f5eb" />
+      <directionalLight position={[100, 150, 100]} intensity={2.7} color="#fffaf0" />
+      <directionalLight position={[-100, 70, -100]} intensity={0.8} color="#9ceee3" />
+      {grid && <gridHelper args={[400, 40, '#33535b', '#243940']} position={[0, -Math.max(...model.boundsInches) * 25.4 * 0.58, 0]} />}
+      <ModelErrorBoundary key={model.id} onFailure={onFailure}>
+        <Suspense fallback={<Html center><div className="scene-loader">Loading geometry…</div></Html>}>
+          <DisplayObject model={model} wireframe={wireframe} />
+        </Suspense>
+      </ModelErrorBoundary>
+      <CameraPosition model={model} view={view} resetVersion={resetVersion} />
+      <OrbitControls makeDefault enableDamping dampingFactor={0.075} minDistance={5} maxDistance={2200} autoRotate={rotating} autoRotateSpeed={1.2} />
+    </Canvas>
+  );
+}

@@ -1,0 +1,110 @@
+#!/usr/bin/env python3
+"""Convert verified openGrid CAD pipeline outputs into a static, versioned web catalog.
+
+No generated geometry is invented in the browser. The GLB meshes here come from
+validated generated STL/3MF files. STEP/3MF/STL originals remain downloadable.
+"""
+from __future__ import annotations
+import argparse
+import json
+import shutil
+import sys
+from pathlib import Path
+from typing import Any
+import trimesh
+
+ROOT = Path(__file__).resolve().parents[1]
+MODELS = [
+    dict(id='og-cable-hook-v1', name='Cable hook', type='Accessories', tagline='A lightweight modular cable organizer', file='accessories/opengrid_openconnect_cable_hook.3mf', preview='opengrid_openconnect_cable_hook.png', description='A cable-management prototype attached to a native two-cell openConnect receiving plate.', interface='Native openConnect receiver', material='PETG candidate', tags=['Cable management','OpenConnect','2-cell'], source='cad/opengrid/cable_hook.scad', editable='OpenSCAD source', accent='#7fe3c5', parameters={"stemLengthIn": 0.75, "stemDiameterIn": 0.30, "lipDiameterIn":0.50}),
+    dict(id='og-oc-snap-lite-v1', name='Lite snap', type='Connectors', tagline='Original source, 4 mm Lite interface', file='interfaces/opengrid_openconnect_snap_lite.3mf', preview='opengrid_openconnect_snap_lite.png', description='Native publisher-authored openGrid Lite thickness snap with openConnect head.', interface='openGrid Lite · openConnect', material='To be tested', tags=['Native geometry','Lite','Mounting'], source='vendor/mitufy-opengrid/opengrid_parametric_snap.scad', editable='OpenSCAD source', accent='#caa9ff'),
+    dict(id='og-oc-snap-full-v1', name='Full snap', type='Connectors', tagline='Original source, 6.8 mm Full interface', file='interfaces/opengrid_openconnect_snap_full.3mf', preview='opengrid_openconnect_snap_full.png', description='Native publisher-authored openGrid Full thickness snap with openConnect head.', interface='openGrid Full · openConnect', material='To be tested', tags=['Native geometry','Full','Mounting'], source='vendor/mitufy-opengrid/opengrid_parametric_snap.scad', editable='OpenSCAD source', accent='#b5c7f2'),
+    dict(id='og-oc-receiver-2x1-v1', name='Receiving plate', type='Connectors', tagline='Two-cell openConnect accessory interface', file='interfaces/opengrid_openconnect_receiver_2x1.3mf', preview='opengrid_openconnect_receiver_2x1.png', description='A 2×1 native openConnect slot layout on a supported mounting plate.', interface='Native openConnect 2×1', material='To be tested', tags=['Native geometry','Adapter','2-cell'], source='vendor/mitufy-opengrid/openconnect_plate.scad', editable='OpenSCAD source', accent='#edbd8c'),
+    dict(id='og-tray-v1', name='Storage tray', type='Prototypes', tagline='Compact modular desk organizer', file='grid_tray.stl', preview='grid_tray.png', description='An independently printable desk tray with grid-aligned mounting positions. Native wall mounting has not been integrated.', interface='28 mm positioning only', material='PLA / PETG candidate', tags=['Storage','Standalone','Tray'], source='cad/library.py', editable='STEP + CadQuery', accent='#a6d5f5'),
+    dict(id='og-crate-v1', name='Vented crate', type='Prototypes', tagline='Airflow-friendly storage container', file='vented_crate.stl', preview='vented_crate.png', description='A standalone ventilated crate with 28 mm-aligned openings. The openings are not native openGrid connection slots.', interface='Pitch-aligned openings only', material='PLA / PETG candidate', tags=['Storage','Standalone','Crate'], source='cad/library.py', editable='STEP + CadQuery', accent='#b7d7b0'),
+    dict(id='og-adapter-blank-v1', name='Adapter blank', type='Prototypes', tagline='A base for future mounting systems', file='adapter_blank.stl', preview='adapter_blank.png', description='Blank plate with grid-aligned fastener positions, ready to receive a properly validated connector.', interface='Alignment only', material='PLA / PETG candidate', tags=['Template','Adapter','Mounting'], source='cad/library.py', editable='STEP + CadQuery', accent='#ebc4a3'),
+    dict(id='og-pitch-calibration-v1', name='Pitch coupon', type='Prototypes', tagline='Reference geometry for print calibration', file='pitch_coupon.stl', preview='pitch_coupon.png', description='Dimensioned 28 mm pitch measurement coupon for calibrating a print. It is not a snap-compatible board.', interface='28 mm reference pitch', material='PLA / PETG candidate', tags=['Calibration','Reference','Test'], source='cad/library.py', editable='STEP + CadQuery', accent='#e7d9aa'),
+]
+
+
+def _load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def export_assets(output_dir: Path, target_dir: Path, revision: str = 'local') -> dict:
+    output_dir, target_dir = Path(output_dir), Path(target_dir)
+    report = _load_json(output_dir / 'reports' / 'engineering_report.json')
+    verified = {entry['part']: entry for entry in report['records']}
+    model_dir = target_dir / 'models'
+    images_dir = target_dir / 'previews'
+    exports_dir = target_dir / 'downloads'
+    for folder in (model_dir, images_dir, exports_dir):
+        folder.mkdir(parents=True, exist_ok=True)
+    data = []
+    for config in MODELS:
+        config = dict(config)
+        input_file = output_dir / config.pop('file')
+        key = input_file.stem
+        if key not in verified:
+            raise ValueError(f'Missing verified CAD record for {key}')
+        check = verified[key]
+        if check.get('cad_geometry_valid') is not True or check.get('mesh_watertight') is not True:
+            raise ValueError(f'Unverified mesh {key}')
+        if not input_file.exists():
+            raise FileNotFoundError(input_file)
+        mesh = trimesh.load_mesh(input_file, process=True)
+        if not isinstance(mesh, trimesh.Trimesh) or not mesh.is_watertight or not mesh.is_volume or mesh.volume <= 0:
+            raise ValueError(f'Invalid source mesh {input_file}')
+        # Explicitly preserve source geometry coordinates in millimetres.
+        glb_path = model_dir / f'{config["id"]}.glb'
+        mesh.export(glb_path)
+        if not glb_path.is_file() or glb_path.stat().st_size < 256:
+            raise ValueError(f'GLB export failed for {input_file}')
+        preview_src = output_dir / 'previews' / config.pop('preview')
+        if not preview_src.is_file():
+            raise FileNotFoundError(preview_src)
+        preview_dest = images_dir / f'{config["id"]}.png'
+        shutil.copyfile(preview_src, preview_dest)
+        formats = {input_file.suffix[1:].upper(): f'downloads/{input_file.name}'}
+        shutil.copyfile(input_file, exports_dir / input_file.name)
+        step = output_dir / (input_file.stem + '.step')
+        if step.is_file():
+            shutil.copyfile(step, exports_dir / step.name)
+            formats['STEP'] = f'downloads/{step.name}'
+        config['model'] = f'models/{config["id"]}.glb'
+        config['preview'] = f'previews/{config["id"]}.png'
+        config['downloads'] = formats
+        config['boundsInches'] = check['bounds_inches']
+        config['triangles'] = check['triangles']
+        config['volumeCubicInches'] = check['volume_cubic_inches']
+        config['validation'] = {
+            'cadValid': True,
+            'meshWatertight': True,
+            'slicerVerified': False,
+            'fitVerified': False,
+            'loadTested': False,
+        }
+        config['provenance'] = 'Native upstream source' if config['type'] == 'Connectors' else ('Native receiver, custom accessory' if config['type'] == 'Accessories' else 'Original CadQuery prototype')
+        data.append(config)
+    catalog = {
+        'schemaVersion': '1.0.0',
+        'generatedFrom': revision,
+        'unit': 'in',
+        'verification': 'CAD software checks only; physical fit and load unverified',
+        'models': data,
+    }
+    (target_dir / 'catalog.json').write_text(json.dumps(catalog, indent=2) + '\n', encoding='utf-8')
+    return catalog
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description='Publish verified CAD geometry as static web assets')
+    parser.add_argument('--output', default=str(ROOT / 'output'))
+    parser.add_argument('--dest', default=str(ROOT / 'web' / 'public' / 'assets'))
+    parser.add_argument('--revision', default='local')
+    args = parser.parse_args()
+    result = export_assets(Path(args.output), Path(args.dest), args.revision)
+    print(f'Prepared {len(result["models"])} verified GLB models, previews, and source downloads')
+
+
+if __name__ == '__main__':
+    main()
