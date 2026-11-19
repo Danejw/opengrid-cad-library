@@ -13,4 +13,7 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Keep source CAD, test data and intentionally versioned STEP/STL examples
+# Generated CAD and measurement-specific plans stay local
+/output/*
+!/output/README.md
+
