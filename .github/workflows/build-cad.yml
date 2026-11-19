@@ -29,11 +29,7 @@ jobs:
         run: python -m pytest -q tests
       - name: Generate editable STEP and printable STL models
         run: python cad/generate.py --part all
-      - name: Generate both wall plans (A1 and A1 Mini)
-        run: |
-          python cad/wall_planner.py --printer a1
-          python cad/wall_planner.py --printer a1-mini
-      - name: Upload downloadable CAD and wall plans
+      - name: Upload downloadable CAD models
         uses: actions/upload-artifact@v4
         with:
           name: opengrid-cad-library-v0.1-exports

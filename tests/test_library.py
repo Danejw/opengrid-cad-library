@@ -10,22 +10,22 @@ def test_basic_dimensions():
     assert centered_grid_locations(2)==[-14,14]
     assert len(mounting_pattern(4,3))==12
 
-def test_wall_plans():
-    a,b=plan_wall(64,64,8),plan_wall(54,60,8)
-    assert a['grid_cells']==[58,58]
-    assert a['number_of_panels']==64
-    assert b['grid_cells']==[48,54]
-    assert b['number_of_panels']==42
-    assert a['coverage_inches'][0]<=64
-    assert b['coverage_inches'][1]<=60
-    assert all(part['cells_w']<=8 and part['cells_h']<=8 for p in [a,b] for part in p['parts'])
-    assert sum(part['cells_w']*part['cells_h'] for part in a['parts'])==58*58
-    assert sum(part['cells_w']*part['cells_h'] for part in b['parts'])==48*54
+def test_wall_planner_uses_supplied_dimensions():
+    plan = plan_wall(20, 15, 8, 'Sample')
+    assert plan['wall_inches'] == [20, 15]
+    assert plan['grid_cells'] == [18, 13]
+    assert plan['number_of_panels'] == 6
+    assert all(part['cells_w'] <= 8 and part['cells_h'] <= 8 for part in plan['parts'])
+    assert sum(p['cells_w'] * p['cells_h'] for p in plan['parts']) == 18 * 13
+    assert plan['coverage_inches'][0] <= 20
+    assert plan['coverage_inches'][1] <= 15
 
-def test_mini():
-    a,b=plan_wall(64,64,6),plan_wall(54,60,6)
-    assert a['number_of_panels']==100
-    assert b['number_of_panels']==72
+def test_mini_custom_layout():
+    plan = plan_wall(20, 15, 6, 'Sample')
+    assert plan['grid_cells'] == [18, 13]
+    assert plan['number_of_panels'] == 9
+    assert all(p['cells_w'] <= 6 and p['cells_h'] <= 6 for p in plan['parts'])
+
 
 def test_model_solids_and_sizes():
     for fn in [pitch_coupon,grid_tray,vented_crate,adapter_blank]:

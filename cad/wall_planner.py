@@ -51,18 +51,28 @@ def save_svg(plan,path):
 
 
 def main():
-    p=argparse.ArgumentParser()
-    p.add_argument('--printer',choices=['a1','a1-mini'],default='a1')
-    p.add_argument('--out',default=str(Path(__file__).resolve().parents[1]/'output'))
-    a=p.parse_args(); out=Path(a.out); out.mkdir(parents=True,exist_ok=True)
-    max_cells=8 if a.printer=='a1' else 6
-    plans=[plan_wall(64,64,max_cells,'Wall A'),plan_wall(54,60,max_cells,'Wall B')]
-    for plan in plans:
-        stem=plan['name'].replace(' ','_')+'_'+a.printer
-        (out/(stem+'.json')).write_text(json.dumps(plan,indent=2))
-        save_svg(plan,out/(stem+'.svg'))
-        with (out/(stem+'.csv')).open('w',newline='') as f:
-            wr=csv.DictWriter(f,fieldnames=list(plan['parts'][0]));wr.writeheader();wr.writerows(plan['parts'])
-        print(f"{plan['name']}: {plan['number_of_panels']} tiles, {plan['coverage_inches']} inches coverage, unfilled border {plan['unused_inches']} inches")
+    p = argparse.ArgumentParser(description="Generate an openGrid layout for measured dimensions.")
+    p.add_argument('--printer', choices=['a1', 'a1-mini'], default='a1')
+    p.add_argument('--width', type=float, required=True, help='Measured wall width in inches')
+    p.add_argument('--height', type=float, required=True, help='Measured wall height in inches')
+    p.add_argument('--name', default='Wall', help='Name for generated output files')
+    p.add_argument('--out', default=str(Path(__file__).resolve().parents[1] / 'output'))
+    a = p.parse_args()
+    if not math.isfinite(a.width) or not math.isfinite(a.height) or a.width <= 0 or a.height <= 0:
+        p.error('Width and height must be finite positive numbers in inches')
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    max_cells = 8 if a.printer == 'a1' else 6
+    plan = plan_wall(a.width, a.height, max_cells, a.name)
+    stem = plan['name'].replace(' ', '_') + '_' + a.printer
+    (out / (stem + '.json')).write_text(json.dumps(plan, indent=2))
+    save_svg(plan, out / (stem + '.svg'))
+    with (out / (stem + '.csv')).open('w', newline='') as f:
+        wr = csv.DictWriter(f, fieldnames=list(plan['parts'][0]))
+        wr.writeheader()
+        wr.writerows(plan['parts'])
+    print(f"{plan['name']}: {plan['number_of_panels']} tiles, {plan['coverage_inches']} inches coverage, remaining border {plan['unused_inches']} inches")
 
-if __name__=='__main__':main()
+
+if __name__ == '__main__':
+    main()
