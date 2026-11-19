@@ -31,3 +31,5 @@ All generated parts are **prototype-ready** but remain **unverified physically**
 ## Next step
 
 Use this shared native interface to create a functional cable-management accessory in a separate Phase 2 commit.
+
+CI uses the [official OpenSCAD 2026.07.20 AppImage](https://files.openscad.org/snapshots/) with its publisher-provided SHA256 check. The apt-packaged OpenSCAD 2021.01 produced a non-watertight Full variant and is not accepted as a verified rendering environment.

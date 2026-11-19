@@ -25,26 +25,33 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-      - name: Install OpenSCAD and pinned BOSL2 library
+      - name: Install pinned official OpenSCAD snapshot and BOSL2
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y openscad
-          mkdir -p "$RUNNER_TEMP/openscad-libraries"
+          sudo apt-get install -y xvfb
+          mkdir -p "$RUNNER_TEMP/openscad-runtime" "$RUNNER_TEMP/openscad-libraries"
+          cd "$RUNNER_TEMP/openscad-runtime"
+          curl --fail --location --retry 3 --output OpenSCAD-2026.07.20-x86_64.AppImage https://files.openscad.org/snapshots/OpenSCAD-2026.07.20-x86_64.AppImage
+          curl --fail --location --retry 3 --output OpenSCAD-2026.07.20-x86_64.AppImage.sha256 https://files.openscad.org/snapshots/OpenSCAD-2026.07.20-x86_64.AppImage.sha256
+          sha256sum --check OpenSCAD-2026.07.20-x86_64.AppImage.sha256
+          chmod +x OpenSCAD-2026.07.20-x86_64.AppImage
+          ./OpenSCAD-2026.07.20-x86_64.AppImage --appimage-extract >/dev/null
+          echo "OPENSCAD_BIN=$RUNNER_TEMP/openscad-runtime/squashfs-root/AppRun" >> "$GITHUB_ENV"
           git clone --quiet https://github.com/BelfrySCAD/BOSL2.git "$RUNNER_TEMP/openscad-libraries/BOSL2"
           git -C "$RUNNER_TEMP/openscad-libraries/BOSL2" checkout --quiet 1351a9f7e5f30a95228e580d167fd4f2e184ad2c
           echo "OPENSCADPATH=$RUNNER_TEMP/openscad-libraries" >> "$GITHUB_ENV"
-          openscad --version
+          "$RUNNER_TEMP/openscad-runtime/squashfs-root/AppRun" --version
       - name: Run tests
         run: python -m pytest -q tests
       - name: Generate editable STEP and printable STL models
         run: python cad/generate.py --part all
       - name: Phase 1 - generate native Full, Lite and openConnect receiver
         run: |
-          python cad/opengrid/generate_interfaces.py --variant all
+          python cad/opengrid/generate_interfaces.py --variant all --openscad "$OPENSCAD_BIN"
           python cad/opengrid/validate_interfaces.py
       - name: Phase 2 - generate and validate cable hook accessory
         run: |
-          python cad/opengrid/generate_accessory.py
+          python cad/opengrid/generate_accessory.py --openscad "$OPENSCAD_BIN"
           python cad/opengrid/validate_accessory.py
       - name: Upload downloadable CAD models
         uses: actions/upload-artifact@v4
