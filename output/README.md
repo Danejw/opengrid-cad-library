@@ -18,3 +18,5 @@ Wall-specific layouts are not generated in GitHub Actions and aren't committed t
 Or open GitHub Actions -> **Build and validate parametric CAD** -> the latest successful run -> download the **opengrid-cad-library-v0.1-exports** artifact.
 
 Generated examples are CAD-valid prototypes, but their openGrid snap interfaces have **not** been validated on physical hardware. See `docs/INTERFACES.md`.
+
+Native openGrid interface and accessory models are exported as 3MF to preserve mesh topology. They are usable in Bambu Studio, subject to slicing and fit testing.

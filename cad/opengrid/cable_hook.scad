@@ -12,7 +12,7 @@ lip_diameter_mm = 12.70;         // 0.50 in
 lip_height_mm = 3.0;
 $fn = 64;
 
-assert(receiver_file != "", "Pass the generated upstream receiver STL using -D receiver_file");
+assert(receiver_file != "", "Pass the generated upstream receiver 3MF using -D receiver_file");
 
 module cable_hook() {
     // The upstream receiver has 2 x 1 native slots centered on 28 mm pitch,\n    // in a 70 x 42 mm support plate at z>=0.

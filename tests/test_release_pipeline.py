@@ -9,9 +9,9 @@ sys.path.insert(0,str(ROOT/"cad"/"opengrid"))
 from release_pipeline import EXPECTED,inspect
 
 def test_expected_parts_cover_native_interface_and_accessory():
-    assert "opengrid_openconnect_snap_full.stl" in EXPECTED
-    assert "opengrid_openconnect_snap_lite.stl" in EXPECTED
-    assert "opengrid_openconnect_cable_hook.stl" in EXPECTED
+    assert "opengrid_openconnect_snap_full.3mf" in EXPECTED
+    assert "opengrid_openconnect_snap_lite.3mf" in EXPECTED
+    assert "opengrid_openconnect_cable_hook.3mf" in EXPECTED
 
 def test_engineering_record_never_claims_physical_fit(tmp_path):
     sample=tmp_path/"sample.stl"

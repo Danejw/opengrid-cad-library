@@ -38,9 +38,9 @@ def main():
     ap.add_argument("--dir",default="output/interfaces")
     args=ap.parse_args()
     folder=Path(args.dir)
-    paths=sorted(folder.glob("*.stl"))
+    paths=sorted(folder.glob("*.3mf"))
     if len(paths)<3:
-        raise SystemExit("Expected 2 original snap variants plus 1 receiver plate")
+        raise SystemExit("Expected 2 original native snap variants plus 1 receiver plate, each 3MF")
     results=[inspect_mesh(p) for p in paths]
     (folder/"verification.json").write_text(json.dumps(results,indent=2)+"\n")
     print(json.dumps(results,indent=2))

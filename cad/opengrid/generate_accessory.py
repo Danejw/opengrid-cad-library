@@ -4,6 +4,8 @@ import argparse
 import json
 from pathlib import Path
 import subprocess
+import tempfile
+from native_mesh import convert_native_stl_to_3mf
 
 ROOT=Path(__file__).resolve().parents[2]
 SOURCE=ROOT/"cad"/"opengrid"/"cable_hook.scad"
@@ -16,7 +18,7 @@ def build(*, receiver=None, output=None, stem_length_in=0.75,
         raise ValueError("stem diameter must be 0.18..0.5 inches")
     if lip_diameter_in<=stem_diameter_in or lip_diameter_in>0.75:
         raise ValueError("lip diameter must be greater than stem and at most 0.75 inches")
-    native=Path(receiver) if receiver else ROOT/"output"/"interfaces"/"opengrid_openconnect_receiver_2x1.stl"
+    native=Path(receiver) if receiver else ROOT/"output"/"interfaces"/"opengrid_openconnect_receiver_2x1.3mf"
     if not native.is_file():
         raise FileNotFoundError(
             f"Native upstream receiver missing: {native}. "
@@ -24,23 +26,28 @@ def build(*, receiver=None, output=None, stem_length_in=0.75,
         )
     dest=Path(output) if output else ROOT/"output"/"accessories"
     dest.mkdir(parents=True,exist_ok=True)
-    target=dest/"opengrid_openconnect_cable_hook.stl"
+    target=dest/"opengrid_openconnect_cable_hook.3mf"
     parameters={
       "receiver_file":str(native.resolve()),
       "stem_length_mm":round(stem_length_in*25.4,5),
       "stem_diameter_mm":round(stem_diameter_in*25.4,5),
       "lip_diameter_mm":round(lip_diameter_in*25.4,5),
     }
-    cmd=[openscad,"-o",str(target.resolve())]
+    temp=tempfile.TemporaryDirectory()
+    intermediate=Path(temp.name)/"cable_hook_intermediate.stl"
+    cmd=[openscad,"-o",str(intermediate.resolve())]
     for k,v in parameters.items():
         cmd+=["-D",f"{k}={json.dumps(v)}"]
     cmd.append(str(SOURCE))
     run=subprocess.run(cmd,cwd=ROOT,text=True,capture_output=True,check=False)
-    if run.returncode or not target.is_file() or target.stat().st_size<100:
+    if run.returncode or not intermediate.is_file() or intermediate.stat().st_size<100:
         raise RuntimeError(f"OpenSCAD cable hook generation failed: {run.stderr[-4500:]}")
     if "ERROR:" in run.stderr or "WARNING:" in run.stderr:
         raise RuntimeError(f"OpenSCAD cable hook warnings: {run.stderr[-4500:]}")
+    conversion=convert_native_stl_to_3mf(intermediate,target)
+    temp.cleanup()
     metadata={
+      "native_mesh_conversion":conversion,
       "id":"og-cable-hook-v1",
       "source":"cad/opengrid/cable_hook.scad",
       "native_connector_source":"vendor/mitufy-opengrid/openconnect_plate.scad",

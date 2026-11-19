@@ -6,7 +6,7 @@ from validate_interfaces import inspect_mesh
 
 def main():
     folder=Path("output/accessories")
-    target=folder/"opengrid_openconnect_cable_hook.stl"
+    target=folder/"opengrid_openconnect_cable_hook.3mf"
     if not target.exists():
         raise SystemExit("Phase 2 accessory wasn't generated")
     report=inspect_mesh(target)

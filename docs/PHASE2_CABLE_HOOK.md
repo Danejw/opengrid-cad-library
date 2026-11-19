@@ -2,7 +2,7 @@
 
 This is the first **functional accessory** for the library. It uses a native upstream **2 × 1-cell openConnect receiving plate** from Phase 1 as the actual mating surface. A lightweight cable-hanging peg is fused to its opposite side in editable OpenSCAD source.
 
-Approximate dimensions: a 2.76-inch × 1.65-inch native receiver carrying 2 × 1 openConnect slot positions, plus a 0.75-inch peg with a 0.50-inch retaining lip. Exact STL geometry is machine-generated and verified in CI.
+Approximate dimensions: a 2.76-inch × 1.65-inch native receiver carrying 2 × 1 openConnect slot positions, plus a 0.75-inch peg with a 0.50-inch retaining lip. Exact 3MF geometry is machine-generated and verified in CI.
 
 ## Generate
 
@@ -12,7 +12,7 @@ python cad/opengrid/generate_accessory.py --stem-length-in 0.75 --stem-diameter-
 python cad/opengrid/validate_accessory.py
 ```
 
-Or download the CI artifact. The editable source is `cad/opengrid/cable_hook.scad`; the completed STL is `output/accessories/opengrid_openconnect_cable_hook.stl`. A STEP export of the **complete native assembly** is not yet provided because OpenSCAD's STL-based assembly does not preserve analytic BRep faces; don't mistake a mesh conversion for native parametric STEP.
+Or download the CI artifact. The editable source is `cad/opengrid/cable_hook.scad`; the native-geometry mesh is `output/accessories/opengrid_openconnect_cable_hook.3mf`. A STEP export of the **complete native assembly** is not yet provided because OpenSCAD's STL-based assembly does not preserve analytic BRep faces; don't mistake a mesh conversion for native parametric STEP.
 
 ## How to mount
 

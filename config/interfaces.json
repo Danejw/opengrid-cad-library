@@ -15,7 +15,7 @@
   "components": [
     {
       "id": "og-oc-snap-lite-v1",
-      "renderer": "opengrid_openconnect_snap_lite.stl",
+      "renderer": "opengrid_openconnect_snap_lite.3mf",
       "board_variant": "Lite",
       "snap_thickness_mm": 4,
       "connector": "openConnect",
@@ -26,7 +26,7 @@
     },
     {
       "id": "og-oc-snap-full-v1",
-      "renderer": "opengrid_openconnect_snap_full.stl",
+      "renderer": "opengrid_openconnect_snap_full.3mf",
       "board_variant": "Full",
       "snap_thickness_mm": 6.8,
       "connector": "openConnect",
@@ -37,7 +37,7 @@
     },
     {
       "id": "og-oc-receiver-2x1-v1",
-      "renderer": "opengrid_openconnect_receiver_2x1.stl",
+      "renderer": "opengrid_openconnect_receiver_2x1.3mf",
       "board_variant": "both_unverified",
       "cells": [
         2,

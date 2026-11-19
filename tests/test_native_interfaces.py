@@ -1,6 +1,8 @@
 """Test source provenance and generator contracts without running OpenSCAD."""
 import hashlib
 import json
+import pytest
+import trimesh
 import sys
 from pathlib import Path
 
@@ -42,3 +44,27 @@ def test_interfaces_unverified_until_physical_test():
     for entry in x["components"]:
         assert entry["fit_verified"] is False
         assert entry["load_tested"] is False
+
+def test_native_mesh_to_3mf_preserves_dimensions(tmp_path):
+    from native_mesh import convert_native_stl_to_3mf
+    source=tmp_path/"sample.stl"
+    dest=tmp_path/"sample.3mf"
+    trimesh.creation.box(extents=[28,28,4]).export(source)
+    data=convert_native_stl_to_3mf(source,dest)
+    assert data["topology_preserved"] is True
+    assert data["physical_fit_verified"] is False
+    model=trimesh.load_mesh(dest)
+    assert model.is_watertight and model.is_volume
+
+def test_no_disconnected_real_geometry_is_discarded(tmp_path):
+    from native_mesh import convert_native_stl_to_3mf
+    import numpy as np
+    from trimesh.util import concatenate
+    a=trimesh.creation.box(extents=[28,28,4])
+    b=trimesh.creation.box(extents=[3,3,3])
+    b.apply_translation([40,0,0])
+    original=concatenate([a,b])
+    src=tmp_path/"two.stl"
+    original.export(src)
+    with pytest.raises(ValueError):
+        convert_native_stl_to_3mf(src,tmp_path/"two.3mf")

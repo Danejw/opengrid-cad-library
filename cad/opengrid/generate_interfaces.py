@@ -9,6 +9,8 @@ import json
 import os
 from pathlib import Path
 import subprocess
+import tempfile
+from native_mesh import convert_native_stl_to_3mf
 
 ROOT = Path(__file__).resolve().parents[2]
 VENDOR = ROOT / "vendor" / "mitufy-opengrid"
@@ -54,14 +56,16 @@ def build(variant="all", output=None, openscad="openscad", dry_run=False):
     for name, script, parameters in profile_commands(variant):
         if not script.is_file():
             raise FileNotFoundError(f"Missing vendored upstream generator: {script}")
-        target = dest / name
-        cmd = [openscad, "-o", str(target)]
+        target = dest / Path(name).with_suffix('.3mf')
+        temp = tempfile.TemporaryDirectory() if not dry_run else None
+        intermediate = (Path(temp.name) / name) if temp else dest / name
+        cmd = [openscad, "-o", str(intermediate)]
         for key, val in parameters.items():
             cmd += ["-D", f"{key}={json.dumps(val)}"]
         cmd += [str(script)]
         if not dry_run:
             result = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, check=False)
-            if result.returncode != 0 or not target.is_file() or target.stat().st_size < 100:
+            if result.returncode != 0 or not intermediate.is_file() or intermediate.stat().st_size < 100:
                 raise RuntimeError(
                     f"OpenSCAD failed for {name}: exit={result.returncode}\n"
                     f"stdout={result.stdout[-3000:]}\nstderr={result.stderr[-5000:]}"
@@ -76,6 +80,8 @@ def build(variant="all", output=None, openscad="openscad", dry_run=False):
                           and not known.match(line.strip())]
             if unexpected:
                 raise RuntimeError(f"Unexpected OpenSCAD diagnostics for {name}: {unexpected[:12]}")
+            conversion = convert_native_stl_to_3mf(intermediate, target)
+            temp.cleanup()
         results.append({
             "file": str(target),
             "variant": name,
@@ -83,6 +89,7 @@ def build(variant="all", output=None, openscad="openscad", dry_run=False):
             "parameters": parameters,
             "command": cmd,
             "generated": not dry_run,
+            "native_mesh_conversion": conversion if not dry_run else None,
             "physical_fit_verified": False,
         })
     return results

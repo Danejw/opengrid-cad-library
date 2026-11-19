@@ -5,8 +5,8 @@ Runs in GitHub Actions using pinned native source and BOSL2, OpenSCAD, CadQuery,
 ```text
 Parametric source (Python/OpenSCAD)
   -> CadQuery 4 sample STEP + STL exports
-  -> native Full, Lite and 2x1 receiver STL exports
-  -> Phase 2 native-plate cable hook STL
+  -> native Full, Lite and 2x1 receiver 3MF exports
+  -> Phase 2 native-plate cable hook 3MF
   -> watertight/bounds/volume preflight
   -> eight 720x540 PNG CAD previews
   -> output/reports/engineering_report.json
@@ -38,3 +38,5 @@ On Windows with an interactive OpenSCAD GUI you may replace `--xvfb xvfb-run` wi
 Actual printing must wait for hardware and user approval. Use the native board + matching openConnect snap, verify insertion and removal, then record materials, slicer settings, measured print characteristics, failure modes, retention and repeatability. Only those tests can move `fit_verified` and `load_tested` to true.
 
 Bambu Studio is a separately installed slicer, and Fusion MCP remains optional. GitHub Actions does not automatically connect to or control any printer.
+
+Native snap and receiver files use 3MF rather than raw STL so vertex topology is preserved; see `cad/opengrid/native_mesh.py` for the strictly validated conversion.

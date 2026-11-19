@@ -16,10 +16,10 @@ import trimesh
 ROOT=Path(__file__).resolve().parents[2]
 EXPECTED={
     "pitch_coupon.stl","grid_tray.stl","vented_crate.stl","adapter_blank.stl",
-    "opengrid_openconnect_snap_lite.stl",
-    "opengrid_openconnect_snap_full.stl",
-    "opengrid_openconnect_receiver_2x1.stl",
-    "opengrid_openconnect_cable_hook.stl"
+    "opengrid_openconnect_snap_lite.3mf",
+    "opengrid_openconnect_snap_full.3mf",
+    "opengrid_openconnect_receiver_2x1.3mf",
+    "opengrid_openconnect_cable_hook.3mf"
 }
 
 def inspect(path: Path):
@@ -68,7 +68,7 @@ def preview(stl: Path, destination: Path, openscad: str, xvfb: str):
 def build(root=ROOT, openscad="openscad", xvfb="xvfb-run", make_previews=True):
     root=Path(root)
     output=root/"output"
-    stls=sorted(output.rglob("*.stl"))
+    stls=sorted(output.rglob("*.stl")) + sorted(output.rglob("*.3mf"))
     found={p.name for p in stls}
     missing=EXPECTED-found
     if missing:
