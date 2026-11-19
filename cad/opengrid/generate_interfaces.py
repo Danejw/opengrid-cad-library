@@ -66,8 +66,16 @@ def build(variant="all", output=None, openscad="openscad", dry_run=False):
                     f"OpenSCAD failed for {name}: exit={result.returncode}\n"
                     f"stdout={result.stdout[-3000:]}\nstderr={result.stderr[-5000:]}"
                 )
-            if "WARNING:" in result.stderr or "ERROR:" in result.stderr:
-                raise RuntimeError(f"OpenSCAD reported diagnostics for {name}: {result.stderr[-5000:]}")
+            # The pinned BOSL2 library can issue h/v argument warnings in the
+            # Ubuntu OpenSCAD 2021 build. These were observed with successful
+            # CGAL exports; do not ignore any *other* parser/module warnings.
+            import re
+            known = re.compile(r"^WARNING: variable [hv] not specified as parameter in file builtins\\.scad, line \\d+$")
+            unexpected = [line for line in result.stderr.splitlines()
+                          if ("WARNING:" in line or "ERROR:" in line)
+                          and not known.match(line.strip())]
+            if unexpected:
+                raise RuntimeError(f"Unexpected OpenSCAD diagnostics for {name}: {unexpected[:12]}")
         results.append({
             "file": str(target),
             "variant": name,
