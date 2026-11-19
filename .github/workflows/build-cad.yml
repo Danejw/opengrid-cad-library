@@ -42,6 +42,10 @@ jobs:
         run: |
           python cad/opengrid/generate_interfaces.py --variant all
           python cad/opengrid/validate_interfaces.py
+      - name: Phase 2 - generate and validate cable hook accessory
+        run: |
+          python cad/opengrid/generate_accessory.py
+          python cad/opengrid/validate_accessory.py
       - name: Upload downloadable CAD models
         uses: actions/upload-artifact@v4
         with:

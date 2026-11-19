@@ -1,9 +1,55 @@
 {
   "version": "0.1.0",
   "parts": [
-    {"id":"og-pitch-calibration-v1","output":"pitch_coupon","material":"test PLA/PETG","interfaces":["28mm-cell-spacing"],"status":"CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED","notes":"Not an official openGrid snap-fitting board"},
-    {"id":"og-tray-v1","output":"grid_tray","material":"PLA/PETG","interfaces":["28mm-aligned-mounting-hole-centers"],"status":"CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED","notes":"Native snap must be engineered and verified before wall mounting"},
-    {"id":"og-crate-v1","output":"vented_crate","material":"PLA/PETG","interfaces":["28mm-spaced-openings"],"status":"CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED","notes":"Crate openings are NOT native openGrid connector holes"},
-    {"id":"og-adapter-blank-v1","output":"adapter_blank","material":"PLA/PETG","interfaces":["28mm-aligned-fastener-positions"],"status":"CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED","notes":"Template for adding genuine publisher authored snaps"}
+    {
+      "id": "og-pitch-calibration-v1",
+      "output": "pitch_coupon",
+      "material": "test PLA/PETG",
+      "interfaces": [
+        "28mm-cell-spacing"
+      ],
+      "status": "CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED",
+      "notes": "Not an official openGrid snap-fitting board"
+    },
+    {
+      "id": "og-tray-v1",
+      "output": "grid_tray",
+      "material": "PLA/PETG",
+      "interfaces": [
+        "28mm-aligned-mounting-hole-centers"
+      ],
+      "status": "CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED",
+      "notes": "Native snap must be engineered and verified before wall mounting"
+    },
+    {
+      "id": "og-crate-v1",
+      "output": "vented_crate",
+      "material": "PLA/PETG",
+      "interfaces": [
+        "28mm-spaced-openings"
+      ],
+      "status": "CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED",
+      "notes": "Crate openings are NOT native openGrid connector holes"
+    },
+    {
+      "id": "og-adapter-blank-v1",
+      "output": "adapter_blank",
+      "material": "PLA/PETG",
+      "interfaces": [
+        "28mm-aligned-fastener-positions"
+      ],
+      "status": "CAD_VALID_WATERTIGHT__NOT_PHYSICALLY_PRINTED",
+      "notes": "Template for adding genuine publisher authored snaps"
+    },
+    {
+      "id": "og-cable-hook-v1",
+      "output": "opengrid_openconnect_cable_hook",
+      "material": "PETG suggested for flexibility, verify physical suitability",
+      "interfaces": [
+        "upstream openConnect 2x1 native receiver"
+      ],
+      "status": "SOURCE_PINNED__SOFTWARE_VALIDATION_PENDING__NOT_PHYSICALLY_PRINTED",
+      "notes": "Small cable peg accessory. Native receiving plate is imported from Phase 1 STL. Manual slicing and real fit tests required."
+    }
   ]
 }
