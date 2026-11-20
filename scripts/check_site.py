@@ -18,6 +18,9 @@ def validate(dist: Path) -> None:
     assert len(models) == 14, f'Expected four official boards plus ten existing CAD models, got {len(models)}'
     assert sum(m['type'] == 'Boards' for m in models) == 4
     assert all('David D' in m['provenance'] for m in models if m['type'] == 'Boards')
+    assert 'STEP' in next(m for m in models if m['id'] == 'og-official-full-2x2')['downloads']
+    assert 'STEP' in next(m for m in models if m['id'] == 'og-official-lite-2x2')['downloads']
+    assert 'STEP' in next(m for m in models if m['id'] == 'og-official-lite-4x4')['downloads']
     by_id = {m['id']: m for m in models}
     assert {'og-bare-snap-lite-v1', 'og-bare-snap-full-v1'} <= set(by_id)
     assert 'Bare' in by_id['og-bare-snap-full-v1']['name']
