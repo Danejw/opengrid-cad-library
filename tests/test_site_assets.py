@@ -15,7 +15,7 @@ spec.loader.exec_module(module)
 
 def test_ten_source_models_and_unique_ids():
     assert len(module.MODELS) == 10
-    assert len({m['id'] for m in module.MODELS}) == 8
+    assert len({m['id'] for m in module.MODELS}) == 10
     assert all(m['file'].endswith(('.stl', '.3mf')) for m in module.MODELS)
     by_id = {model['id']: model for model in module.MODELS}
     assert 'Bare' in by_id['og-bare-snap-full-v1']['name']
