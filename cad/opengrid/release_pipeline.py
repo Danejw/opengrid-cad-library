@@ -16,6 +16,8 @@ import trimesh
 ROOT=Path(__file__).resolve().parents[2]
 EXPECTED={
     "pitch_coupon.stl","grid_tray.stl","vented_crate.stl","adapter_blank.stl",
+    "openGrid 2x2.3mf", "openGrid Lite 2x2.3mf",
+    "openGrid 4x4.3mf", "openGrid Lite 4x4.3mf",
     "opengrid_bare_snap_lite.3mf",
     "opengrid_bare_snap_full.3mf",
     "opengrid_openconnect_snap_lite.3mf",

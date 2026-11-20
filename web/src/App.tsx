@@ -13,7 +13,7 @@ import { assetUrl, formatLength, repoUrl, workflowUrl, type Category, type Studi
 
 type Filter = 'All' | Category;
 type PanelTab = 'details' | 'customize' | 'files';
-const filters: Filter[] = ['All', 'Accessories', 'Connectors', 'Prototypes'];
+const filters: Filter[] = ['All', 'Boards', 'Accessories', 'Connectors', 'Prototypes'];
 
 function getInitialPart(): string | null {
   return new URLSearchParams(window.location.search).get('part');
@@ -79,7 +79,7 @@ function FileDownloads({ model }: { model: StudioModel }) {
   return (
     <div className="files-list">
       <div className="section-heading-row"><h3>Manufacturing files</h3><span className="count-pill">{entries.length}</span></div>
-      <p className="panel-subtitle">Original generated files for your CAD tools or slicer.</p>
+      <p className="panel-subtitle">{model.type === 'Boards' ? 'Unmodified files from the official openGrid publisher.' : 'CAD-generated files for your tools or slicer.'}</p>
       {entries.map(([format, path]) => <a className="download-row" href={assetUrl(path)} download key={format}>
         <span className="file-icon"><Box size={18}/></span><span className="download-detail"><strong>{format}</strong><span>{format === 'STEP' ? 'Editable CAD geometry' : format === '3MF' ? 'Printable mesh package' : 'Triangle mesh for slicing'}</span></span><ArrowDownToLine size={18}/>
       </a>)}
@@ -111,7 +111,7 @@ function ModelInspector({ model, tab, setTab, notify }: {
             <div className="detail-section"><h3>Dimensions</h3><div className="dimension-cards"><div><span>Width</span><strong>{formatLength(bounds[0])}</strong></div><div><span>Depth</span><strong>{formatLength(bounds[1])}</strong></div><div><span>Height</span><strong>{formatLength(bounds[2])}</strong></div></div><p className="small-note">Bounding-box measurements from the actual CAD mesh.</p></div>
             <div className="detail-section"><h3>Engineering status</h3><Status verified={model.validation.cadValid} label="CAD geometry"/><Status verified={model.validation.meshWatertight} label="Watertight mesh"/><Status verified={model.validation.slicerVerified} label="Slicer checked"/><Status verified={model.validation.fitVerified} label="Physical fit"/><Status verified={model.validation.loadTested} label="Load tested"/></div>
             <div className="detail-section"><h3>Interface & source</h3><div className="metadata-grid"><span>Connection</span><strong>{model.interface}</strong><span>Original geometry</span><strong>{model.provenance}</strong><span>Material</span><strong>{model.material}</strong><span>Triangles</span><strong>{model.triangles.toLocaleString()}</strong><span>Volume</span><strong>{metric(model.volumeCubicInches)} in³</strong></div></div>
-            <a className="source-link" href={`${repoUrl}/blob/main/${model.source}`} target="_blank" rel="noopener noreferrer">View source file on GitHub <ExternalLink size={14}/></a>
+            <a className="source-link" href={model.sourceUrl ?? `${repoUrl}/blob/main/${model.source}`} target="_blank" rel="noopener noreferrer">{model.sourceUrl ? 'View original publisher files' : 'View source file on GitHub'} <ExternalLink size={14}/></a>
           </Tabs.Content>
           <Tabs.Content value="customize">
             {model.id === 'og-cable-hook-v1' ? <HookConfigurator key={model.id} modelId={model.id} notify={notify} /> : <div className="unavailable"><Settings2 size={30}/><h3>Parametric controls</h3><p>This component's geometry is displayed from a validated CAD export. Browser-based parameter editing isn't available for this design yet.</p><a href={workflowUrl} target="_blank" rel="noopener noreferrer" className="secondary-action">Open CAD workflow <ExternalLink size={14}/></a></div>}

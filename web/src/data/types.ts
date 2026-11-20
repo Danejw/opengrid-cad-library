@@ -1,4 +1,4 @@
-export type Category = 'Accessories' | 'Connectors' | 'Prototypes';
+export type Category = 'Boards' | 'Accessories' | 'Connectors' | 'Prototypes';
 export type Validation = {
   cadValid: boolean;
   meshWatertight: boolean;
@@ -21,6 +21,7 @@ export type StudioModel = {
   material: string;
   tags: string[];
   source: string;
+  sourceUrl?: string;
   editable: string;
   accent: string;
   parameters?: HookParams;

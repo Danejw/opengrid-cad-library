@@ -28,3 +28,7 @@ All models and sources are public because the repository is public.
 ## CAD preview fidelity
 
 The studio includes 10 source-generated CAD parts, including bare Full/Lite directional modeling snaps and separate openConnect-headed snaps. Viewer contour lines and neutral matte materials are a visualization aid only. The exported GLB is checked against the source mesh for triangle count, physical bounds, and volume; original CAD files remain available under Files. Publisher-derived parametric geometry and independently designed prototypes are labeled separately. Real slicer and fit testing are still pending.
+
+## Official openGrid boards
+
+Four original David D Full/Lite board files (2×2 and 4×4) are now in the **Boards** category. Their 3MF sources are imported unchanged from the Printables publisher listing, with pinned SHA-256 hashes, file IDs, source URLs, and CC BY 4.0 attribution in `vendor/davidd-opengrid/manifest.json`. The same models are converted to independent, validated GLB previews. Three original STEP files are included; Full 4×4 STEP can be obtained on the publisher's listing. The simple pitch coupon remains clearly categorized as a **Prototype**, and must never stand in for the original board.

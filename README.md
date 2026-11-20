@@ -119,3 +119,7 @@ This package's **new** Python code and documentation are provided under MIT, see
 ### Why native connectors export as 3MF
 
 STL export of the upstream source can introduce disconnected zero-area triangles and lose topology. The pipeline now preserves the author-authored closed geometry in validated **3MF** files and discards raw intermediate STL exports. These can be opened in Bambu Studio and still require real-world fit checks. The original parametric `.scad` source remains editable and pinned, and the four independent CadQuery prototypes still export both STEP and STL.
+
+## Official publisher board assets
+
+The Studio now includes original David D **Full** and **Lite** openGrid boards (2×2 and 4×4), from the original author's Printables files, in a separate Boards category. The checked-in 3MF files are unmodified and their SHA-256 checksums, source download IDs, and license are pinned in `vendor/davidd-opengrid/manifest.json`. Three matching original STEP files are also supplied; the Full 4×4 STEP is available at the publisher's [original listing](https://www.printables.com/model/1214361-opengrid-walldesk-mounting-framework-and-ecosystem/files). Their GLBs and previews are derived from the original mesh geometry. The pitch calibration plate is a separate nonofficial prototype. The source files have not been physically fit-tested.

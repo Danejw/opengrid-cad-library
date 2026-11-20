@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "publisher": "David D (@DavidD)",
+  "publication": "openGrid - Wall/Desk mounting framework and ecosystem",
+  "source_page": "https://www.printables.com/model/1214361-opengrid-walldesk-mounting-framework-and-ecosystem/files",
+  "license": "CC BY 4.0",
+  "boards": [
+    {
+      "id": "og-official-full-4x4",
+      "name": "Official Full board 4×4",
+      "file": "openGrid 4x4.3mf",
+      "cells": 4,
+      "variant": "Full",
+      "accent": "#c6ccaa",
+      "tagline": "David D original board, 4×4 cells",
+      "desc": "Unmodified publisher-authored openGrid Full board, 4×4 cells, for genuine printable mounting geometry.",
+      "source_file": "vendor/davidd-opengrid/boards/openGrid 4x4.3mf"
+    },
+    {
+      "id": "og-official-lite-4x4",
+      "name": "Official Lite board 4×4",
+      "file": "openGrid Lite 4x4.3mf",
+      "cells": 4,
+      "variant": "Lite",
+      "accent": "#b3cce4",
+      "tagline": "David D original Lite board, 4×4 cells",
+      "desc": "Unmodified publisher-authored openGrid Lite board, 4×4 cells, with its genuine mounting geometry.",
+      "source_file": "vendor/davidd-opengrid/boards/openGrid Lite 4x4.3mf"
+    },
+    {
+      "id": "og-official-full-2x2",
+      "name": "Official Full board 2×2",
+      "file": "openGrid 2x2.3mf",
+      "cells": 2,
+      "variant": "Full",
+      "accent": "#bcd2ba",
+      "tagline": "David D original board, 2×2 cells",
+      "desc": "Unmodified publisher-authored openGrid Full board, 2×2 cells, useful for small snap and print tests.",
+      "source_file": "vendor/davidd-opengrid/boards/openGrid 2x2.3mf"
+    },
+    {
+      "id": "og-official-lite-2x2",
+      "name": "Official Lite board 2×2",
+      "file": "openGrid Lite 2x2.3mf",
+      "cells": 2,
+      "variant": "Lite",
+      "accent": "#cbc6e7",
+      "tagline": "David D original Lite board, 2×2 cells",
+      "desc": "Unmodified publisher-authored openGrid Lite board, 2×2 cells, useful for test installations.",
+      "source_file": "vendor/davidd-opengrid/boards/openGrid Lite 2x2.3mf"
+    }
+  ],
+  "files": [
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid 2x2.3mf",
+      "id": 5051187,
+      "size": 41353,
+      "sha256": "393a2f7193e0ff1560b5e03852bbdb6d0ff3b0414771d6d646ae4cfe2a8d0bee",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114212_2ceffc97-6f20-48ed-ab06-f12b61f32a42_c89710aa-5205-4b92-9dfa-d30f0b28419e/opengrid-2x2.3mf",
+      "git_blob_sha": "cc33a8bc3735e2e2fef433fec511c441bd1a3b75"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid Lite 2x2.3mf",
+      "id": 5051099,
+      "size": 52273,
+      "sha256": "e8b19952492ef895dc59c4dcab54ac660fcbb9cb82e971ba5b4cd7b3c173fd8b",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114142_58dbd63f-ddb4-4df1-8fba-a93d98e272fd_67965d91-53b5-451f-b4db-3745de8a2f27/opengrid-lite-2x2.3mf",
+      "git_blob_sha": "bdd2e43e07700fe2bbc832fe72a9c97ad3f528ab"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid 4x4.3mf",
+      "id": 5051194,
+      "size": 120531,
+      "sha256": "8e7fff2237f5c364164544188fa1b6536d4ebcdd831d7b5e5417a0382f868e3b",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114219_eeae91cb-1656-4b36-9954-a8aa0c5ae93e_c5dae424-c615-486d-86e1-0d352a5c3e33/opengrid-4x4.3mf",
+      "git_blob_sha": "41434ab188c7f95f988f8356d528703c3d0cab64"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid Lite 4x4.3mf",
+      "id": 5051104,
+      "size": 166594,
+      "sha256": "ed3f1950332d5c84f1e5c37812e64773e4b3db191da02a2f5dd8876d5b968efb",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114127_c5544f9e-6032-45a0-a804-03b56f7ed769_94ca9255-fea9-4d8a-beaf-44ee2de8239a/opengrid-lite-4x4.3mf",
+      "git_blob_sha": "5304174542e5d070a459e8d15d0166de8e3e89f1"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid 2x2.step",
+      "id": 5051182,
+      "size": 270923,
+      "sha256": "e69e5a035f577a65f95caec0078778d71b7765be48c1504b9cde486bea403c82",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114185_003e310f-0311-43c7-b9e2-f84adcc08ebf_74f5395c-89ad-4159-87b8-607af959337b/opengrid-2x2.step",
+      "git_blob_sha": "8bf48bc69674affd59bef29eaacc80fd1102afec"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid Lite 2x2.step",
+      "id": 5051060,
+      "size": 197926,
+      "sha256": "e0ec305060f05335f0439ef21a47a27d7c4eed9c9b014282ef99366cb1c9ac40",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114057_9b19e184-6ef5-4eee-8c85-637c431774c6_faa890cb-19b9-4b06-9ed8-6ba12c27c9eb/opengrid-lite-2x2.step",
+      "git_blob_sha": "a76b929ba51d6c1df5f5475c6c6411d1cbef8ff3"
+    },
+    {
+      "path": "vendor/davidd-opengrid/boards/openGrid Lite 4x4.step",
+      "id": 5051072,
+      "size": 709229,
+      "sha256": "d1d21dead2b3e663e4eb78f0ceda30a8ac6edccf10aa289a5d50791891049693",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9114068_bb722584-e191-42f1-bb5e-89d48a3605c6_049e56b0-6bf0-43e8-a0a7-a18dddaef674/opengrid-lite-4x4.step",
+      "git_blob_sha": "0a49f8405e95ac013b1faf30c2c761cd7fdb4768"
+    }
+  ]
+}

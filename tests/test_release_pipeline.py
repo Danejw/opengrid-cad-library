@@ -9,6 +9,10 @@ sys.path.insert(0,str(ROOT/"cad"/"opengrid"))
 from release_pipeline import EXPECTED,inspect
 
 def test_expected_parts_cover_native_interface_and_accessory():
+    assert "openGrid 2x2.3mf" in EXPECTED
+    assert "openGrid Lite 2x2.3mf" in EXPECTED
+    assert "openGrid 4x4.3mf" in EXPECTED
+    assert "openGrid Lite 4x4.3mf" in EXPECTED
     assert "opengrid_bare_snap_full.3mf" in EXPECTED
     assert "opengrid_bare_snap_lite.3mf" in EXPECTED
     assert "opengrid_openconnect_snap_full.3mf" in EXPECTED
