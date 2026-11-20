@@ -79,7 +79,7 @@ function FileDownloads({ model }: { model: StudioModel }) {
   return (
     <div className="files-list">
       <div className="section-heading-row"><h3>Manufacturing files</h3><span className="count-pill">{entries.length}</span></div>
-      <p className="panel-subtitle">{model.type === 'Boards' ? 'Unmodified files from the official openGrid publisher.' : 'CAD-generated files for your tools or slicer.'}</p>
+      <p className="panel-subtitle">{model.provenance.includes('David D original') ? 'Unmodified 3MF and STEP files from David D.' : 'CAD-generated files for your tools or slicer.'}</p>
       {entries.map(([format, path]) => <a className="download-row" href={assetUrl(path)} download key={format}>
         <span className="file-icon"><Box size={18}/></span><span className="download-detail"><strong>{format}</strong><span>{format === 'STEP' ? 'Editable CAD geometry' : format === '3MF' ? 'Printable mesh package' : 'Triangle mesh for slicing'}</span></span><ArrowDownToLine size={18}/>
       </a>)}

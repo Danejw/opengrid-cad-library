@@ -15,7 +15,8 @@ def validate(dist: Path) -> None:
     assets = dist / 'assets'
     catalog = json.loads((assets / 'catalog.json').read_text(encoding='utf-8'))
     models = catalog['models']
-    assert len(models) == 14, f'Expected four official boards plus ten existing CAD models, got {len(models)}'
+    assert len(models) == 20, f'Expected six official accessories plus fourteen existing CAD designs, got {len(models)}'
+    assert all('STEP' in m['downloads'] for m in models if m['id'].startswith('og-official-') and m['type'] != 'Boards')
     assert sum(m['type'] == 'Boards' for m in models) == 4
     assert all('David D' in m['provenance'] for m in models if m['type'] == 'Boards')
     assert 'STEP' in next(m for m in models if m['id'] == 'og-official-full-2x2')['downloads']
