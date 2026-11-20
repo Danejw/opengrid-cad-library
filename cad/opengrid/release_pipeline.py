@@ -33,7 +33,11 @@ EXPECTED={
     "openGrid Bare Directional Snap v2.1.3mf",
     "openGrid Bare Directional Lite Snap v2.3mf",
     "Connector Insert Tool.3mf",
-    "openGrid M4 Nut Snap.3mf"
+    "openGrid M4 Nut Snap.3mf",
+    "openGrid HSW Snap.3mf",
+    "openGrid Underware 2x Channel.3mf",
+    "openGrid Gridfinity Shelve 2x1.3mf",
+    "openGrid Multiboard Tile Snap.3mf"
 }
 
 def inspect(path: Path):

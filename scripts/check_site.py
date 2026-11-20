@@ -15,7 +15,8 @@ def validate(dist: Path) -> None:
     assets = dist / 'assets'
     catalog = json.loads((assets / 'catalog.json').read_text(encoding='utf-8'))
     models = catalog['models']
-    assert len(models) == 24, f'Expected four additional source meshes plus twenty previous models, got {len(models)}'
+    assert len(models) == 28, f'Expected eight additional source meshes plus twenty previous models, got {len(models)}'
+    assert sum('BY-NC-SA' in m['provenance'] for m in models) == 4
     publisher = json.loads((assets / 'publisher-index.json').read_text(encoding='utf-8'))
     assert len(publisher['sources']) == 13
     assert len(publisher['models']) == 362

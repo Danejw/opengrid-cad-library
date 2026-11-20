@@ -14,10 +14,10 @@ spec.loader.exec_module(module)
 
 
 def test_official_boards_and_unique_ids():
-    assert len(module.MODELS) == 24
-    assert len({m['id'] for m in module.MODELS}) == 24
+    assert len(module.MODELS) == 28
+    assert len({m['id'] for m in module.MODELS}) == 28
     assert sum(m['type'] == 'Boards' for m in module.MODELS) == 4
-    assert sum(bool(m.get('officialOriginal')) for m in module.MODELS) == 10
+    assert sum(bool(m.get('officialOriginal')) for m in module.MODELS) == 14
     assert {m['id'] for m in module.MODELS if m['type'] == 'Boards'} == {
         'og-official-full-2x2', 'og-official-lite-2x2',
         'og-official-full-4x4', 'og-official-lite-4x4'
