@@ -46,3 +46,11 @@ A Lite snap is not automatically strong enough for every load. For multi-point o
   "notes": "Use actual printed test to verify"
 }
 ```
+
+## Studio snap variants and geometry fidelity
+
+The Studio publishes two **bare directional modeling snaps** (Full 6.8 mm, Lite 3.4 mm snap in the 4 mm board) plus two separate **openConnect-headed directional snaps** (Full 6.8 mm, Lite 4 mm) from the repository's pinned, unchanged `mitufy/opengrid-projects` OpenSCAD generator. These are distinct mechanical parts with distinct names and downloadable source-generated 3MF files.
+
+The source is attributed under CC BY 4.0 in `vendor/mitufy-opengrid/ATTRIBUTION.md`. The bare versions are intended as native modeling foundations, and should not be presented as verified printable finished mounting hardware. The Studio GLB models are created directly from verified watertight meshes, with bounding-box, face-count, and volume round-trip checks. Visual edge lines and shading do not change the downloaded geometry.
+
+These variants follow upstream published snap dimensions and concepts; they have not been dimensionally compared against every separately distributed David D official STL release. Actual printed insertion, retention, and load capacity remain unverified.

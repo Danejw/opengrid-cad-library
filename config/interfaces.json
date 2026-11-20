@@ -14,6 +14,32 @@
   },
   "components": [
     {
+      "id": "og-bare-snap-lite-v1",
+      "renderer": "opengrid_bare_snap_lite.3mf",
+      "board_variant": "Lite",
+      "board_thickness_mm": 4,
+      "snap_thickness_mm": 3.4,
+      "connector": "Bare directional snap",
+      "purpose": "modeling_reference",
+      "native_source": "opengrid_parametric_snap.scad",
+      "fit_verified": false,
+      "load_tested": false,
+      "status": "source_pinned"
+    },
+    {
+      "id": "og-bare-snap-full-v1",
+      "renderer": "opengrid_bare_snap_full.3mf",
+      "board_variant": "Full",
+      "board_thickness_mm": 6.8,
+      "snap_thickness_mm": 6.8,
+      "connector": "Bare directional snap",
+      "purpose": "modeling_reference",
+      "native_source": "opengrid_parametric_snap.scad",
+      "fit_verified": false,
+      "load_tested": false,
+      "status": "source_pinned"
+    },
+    {
       "id": "og-oc-snap-lite-v1",
       "renderer": "opengrid_openconnect_snap_lite.3mf",
       "board_variant": "Lite",

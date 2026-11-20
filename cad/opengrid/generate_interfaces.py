@@ -35,6 +35,21 @@ def profile_commands(variant: str):
                     "text_depth": 0
                 },
             ))
+    # Bare source geometry for accessory modeling; the Lite bare snap occupies
+    # 3.4 mm of its 4 mm board, per the original modeling guidance.
+    for name, thickness in (("lite", 3.4), ("full", 6.8)):
+        if variant in ("all", name):
+            commands.append((
+                f"opengrid_bare_snap_{name}.stl",
+                SNAP, {
+                    "snap_thickness": thickness,
+                    "snap_body_shape": "Directional",
+                    "generate_snap": "Bare",
+                    "generate_screw": "None",
+                    "view_cross_section": "None",
+                    "text_depth": 0,
+                },
+            ))
     commands.append((
         "opengrid_openconnect_receiver_2x1.stl",
         RECEIVER, {

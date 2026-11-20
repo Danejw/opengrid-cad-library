@@ -13,14 +13,18 @@ module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 
 
-def test_eight_source_models_and_unique_ids():
-    assert len(module.MODELS) == 8
-    assert len({m['id'] for m in module.MODELS}) == 8
+def test_ten_source_models_and_unique_ids():
+    assert len(module.MODELS) == 10
+    assert len({m['id'] for m in module.MODELS}) == 10
     assert all(m['file'].endswith(('.stl', '.3mf')) for m in module.MODELS)
+    by_id = {model['id']: model for model in module.MODELS}
+    assert 'Bare' in by_id['og-bare-snap-full-v1']['name']
+    assert 'Bare' in by_id['og-bare-snap-lite-v1']['name']
+    assert 'openConnect' in by_id['og-oc-snap-full-v1']['name']
 
 
 def test_all_mating_interfaces_remain_unverified():
-    assert {'og-oc-snap-lite-v1', 'og-oc-snap-full-v1', 'og-oc-receiver-2x1-v1'} <= {m['id'] for m in module.MODELS}
+    assert {'og-bare-snap-lite-v1', 'og-bare-snap-full-v1', 'og-oc-snap-lite-v1', 'og-oc-snap-full-v1', 'og-oc-receiver-2x1-v1'} <= {m['id'] for m in module.MODELS}
     assert all('fitVerified' not in m for m in module.MODELS)
 
 
