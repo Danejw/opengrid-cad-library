@@ -25,5 +25,5 @@ def test_exact_publisher_source_samples(tmp_path):
     shutil.copy(ROOT/"vendor/opengrid-sources/imported-manifest.json",target)
     shutil.copytree(ROOT/"vendor/opengrid-sources/originals",target/"originals")
     records=stage(tmp_path)
-    assert len(records)==4
+    assert len(records)==8
     assert all(x["faces"]>20 for x in records)
