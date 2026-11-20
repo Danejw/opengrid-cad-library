@@ -18,7 +18,7 @@ def test_full_original_file_index():
     assert all(m["sourceId"] in {s["id"] for s in index["sources"]} for m in index["models"])
     assert any(s["license"]=="CC BY-NC-SA 4.0" for s in index["sources"])
     assert any(s["creator"]=="mitufy" for s in index["sources"])
-    assert all(f["id"] and f["size"]>0 for m in index["models"] for f in m["files"])
+    assert all(f["id"] and f["bytes"]>0 for m in index["models"] for f in m["files"])
 def test_exact_publisher_source_samples(tmp_path):
     target=tmp_path/"vendor/opengrid-sources"
     target.mkdir(parents=True)
