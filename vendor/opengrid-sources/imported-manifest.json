@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "license": "CC BY 4.0",
+  "publisher": "David D (@DavidD)",
+  "imports": [
+    {
+      "id": "og-publisher-bare-directional-full",
+      "name": "Original Bare Directional Full Snap v2.1",
+      "path": "vendor/opengrid-sources/originals/openGrid Bare Directional Snap v2.1.3mf",
+      "size": 49658,
+      "sha256": "a07784f48745a7dddc03eebcce477b5ed6727fbf8c7a078b33dc321b86a6147b",
+      "fileId": 5828015,
+      "printId": 1214361,
+      "license": "CC BY 4.0",
+      "url": "https://files.printables.com/media/prints/f6ad001a-fa90-4372-846c-19829dd9529d/stls/10446320_b0f45d2b-a8da-45ae-add0-a930f18e6e15_ea4e1207-0b75-4dbb-8c0a-b8ac3550d783/opengrid-bare-directional-snap-v21.3mf"
+    },
+    {
+      "id": "og-publisher-bare-directional-lite",
+      "name": "Original Bare Directional Lite Snap v2",
+      "path": "vendor/opengrid-sources/originals/openGrid Bare Directional Lite Snap v2.3mf",
+      "size": 45695,
+      "sha256": "2035be040287337bf12239f8d02bc28a01d859b01aa5e22374f159384fde7523",
+      "fileId": 5828014,
+      "printId": 1214361,
+      "license": "CC BY 4.0",
+      "url": "https://files.printables.com/media/prints/5836b51e-a95a-4ba7-8a5f-4ca9a3c7db56/stls/10446318_b23c68e1-2900-428f-ba99-96fd64f15e3e_d6d65a83-bc6a-4011-aac8-313238c08585/opengrid-bare-directional-lite-snap-v2.3mf"
+    },
+    {
+      "id": "og-publisher-insert-tool",
+      "name": "Original Connector Insert Tool",
+      "path": "vendor/opengrid-sources/originals/Connector Insert Tool.3mf",
+      "size": 11423,
+      "sha256": "5d4ec5edce7dfcc5d462814df7eeeb9470237a3f1b30a7364341499502b9cf1f",
+      "fileId": 5830303,
+      "printId": 1214361,
+      "license": "CC BY 4.0",
+      "url": "https://files.printables.com/media/prints/c0256daa-85ed-45b2-a015-7f97c4a0108c/stls/10449912_54360afc-b862-433a-941c-0a764ef06470_690712cb-547c-4df9-ac24-71bf2e4f5da5/connector-insert-tool.3mf"
+    },
+    {
+      "id": "og-publisher-m4-nut-snap",
+      "name": "Original M4 Nut Snap",
+      "path": "vendor/opengrid-sources/originals/openGrid M4 Nut Snap.3mf",
+      "size": 48013,
+      "sha256": "1c23a4c8e9e8c4bfc7464876043a337ff5732ffcf3754a8c929cd58f1d65e309",
+      "fileId": 5805939,
+      "printId": 1217921,
+      "license": "CC BY 4.0",
+      "url": "https://files.printables.com/media/prints/0cc5863a-db74-49af-aa87-77491ebd830a/stls/10402682_f28bc292-08fe-48c7-92f0-f987ff37b5a2_4f7655fd-2f51-4fda-b455-a5035214b948/opengrid-m4-nut-snap.3mf"
+    }
+  ]
+}

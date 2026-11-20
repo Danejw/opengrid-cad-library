@@ -15,7 +15,12 @@ def validate(dist: Path) -> None:
     assets = dist / 'assets'
     catalog = json.loads((assets / 'catalog.json').read_text(encoding='utf-8'))
     models = catalog['models']
-    assert len(models) == 20, f'Expected six official accessories plus fourteen existing CAD designs, got {len(models)}'
+    assert len(models) == 24, f'Expected four additional source meshes plus twenty previous models, got {len(models)}'
+    publisher = json.loads((assets / 'publisher-index.json').read_text(encoding='utf-8'))
+    assert len(publisher['sources']) == 13
+    assert len(publisher['models']) == 362
+    assert publisher['totalFiles'] == 679
+    assert all(model['license'] in ('CC BY 4.0', 'CC BY-SA 4.0', 'CC BY-NC-SA 4.0') for model in publisher['sources'])
     assert all('STEP' in m['downloads'] for m in models if m['id'].startswith('og-official-') and m['type'] != 'Boards')
     assert sum(m['type'] == 'Boards' for m in models) == 4
     assert all('David D' in m['provenance'] for m in models if m['type'] == 'Boards')

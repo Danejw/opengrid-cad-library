@@ -29,7 +29,11 @@ EXPECTED={
     "opengrid_openconnect_snap_lite.3mf",
     "opengrid_openconnect_snap_full.3mf",
     "opengrid_openconnect_receiver_2x1.3mf",
-    "opengrid_openconnect_cable_hook.3mf"
+    "opengrid_openconnect_cable_hook.3mf",
+    "openGrid Bare Directional Snap v2.1.3mf",
+    "openGrid Bare Directional Lite Snap v2.3mf",
+    "Connector Insert Tool.3mf",
+    "openGrid M4 Nut Snap.3mf"
 }
 
 def inspect(path: Path):
