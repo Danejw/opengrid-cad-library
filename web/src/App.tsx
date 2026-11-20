@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import ModelViewer, { type ViewDirection } from './components/ModelViewer';
 import HookConfigurator from './components/HookConfigurator';
+import PublisherBrowser from './components/PublisherBrowser';
 import { assetUrl, formatLength, repoUrl, workflowUrl, type Category, type StudioCatalog, type StudioModel } from './data/types';
 
 type Filter = 'All' | Category;
@@ -47,8 +48,8 @@ function ModelCard({ model, active, onClick }: { model: StudioModel; active: boo
   );
 }
 
-function CatalogPanel({ models, selectedId, onSelect, compact = false }: {
-  models: StudioModel[]; selectedId: string; onSelect: (id: string) => void; compact?: boolean;
+function CatalogPanel({ models, selectedId, onSelect, onPublisherOpen, compact = false }: {
+  models: StudioModel[]; selectedId: string; onSelect: (id: string) => void; onPublisherOpen: () => void; compact?: boolean;
 }) {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<Filter>('All');
@@ -65,7 +66,7 @@ function CatalogPanel({ models, selectedId, onSelect, compact = false }: {
         {matching.length > 0 ? matching.map(model => <ModelCard key={model.id} model={model} active={model.id === selectedId} onClick={() => onSelect(model.id)} />)
           : <div className="empty-catalog"><Search size={26}/><strong>No matching parts</strong><span>Try a different keyword or category.</span><button className="text-button" onClick={() => { setQuery(''); setFilter('All'); }}>Clear filters</button></div>}
       </div>
-      <div className="catalog-footer"><Layers3 size={16}/><span>One library. Reusable geometry.</span></div>
+      <div className="catalog-footer"><button type="button" className="publisher-open-button" onClick={onPublisherOpen}><Layers3 size={16}/> Browse published CAD catalog <ExternalLink size={14}/></button></div>
     </div>
   );
 }
@@ -162,6 +163,7 @@ export default function App() {
   const [catalogOpen, setCatalogOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [publisherOpen, setPublisherOpen] = useState(false);
   const [toast, setToast] = useState('');
   const [lightMode, setLightMode] = useState(() => window.localStorage.getItem('og-theme') === 'light');
 
@@ -215,7 +217,7 @@ export default function App() {
       <a href={repoUrl} className="github-button" target="_blank" rel="noopener noreferrer"><Github size={17}/><span>GitHub</span><ExternalLink size={13}/></a>
     </header>
     <div className="workspace-main">
-      <aside className="library-sidebar"><CatalogPanel models={catalog.models} selectedId={model.id} onSelect={select}/></aside>
+      <aside className="library-sidebar"><CatalogPanel models={catalog.models} selectedId={model.id} onSelect={select} onPublisherOpen={() => setPublisherOpen(true)}/></aside>
       <main className="viewer-panel">
         <div className="viewer-topline"><div className="eyebrow">3D DESIGN WORKSPACE <span className="eyebrow-separator">/</span> {model.type.toUpperCase()}</div><span className="viewer-revision">REVISION {catalog.generatedFrom.slice(0, 7)}</span></div>
         <div className="viewer-title"><div><h1>{model.name}</h1><p>{model.tagline}</p></div><button type="button" className="mobile-inspector-link secondary-action" onClick={() => setDetailsOpen(true)}><SlidersHorizontal size={16}/> Details</button></div>
@@ -232,9 +234,10 @@ export default function App() {
       <aside className="inspector-sidebar"><ModelInspector model={model} tab={tab} setTab={setTab} notify={setToast}/></aside>
     </div>
     <nav className="mobile-nav" aria-label="Mobile workspace navigation"><button type="button" onClick={() => setCatalogOpen(true)}><LayoutGrid size={19}/>Library</button><button type="button" className="nav-selected" onClick={() => { setCatalogOpen(false); setDetailsOpen(false); }}><Box size={19}/>Viewer</button><button type="button" onClick={() => setDetailsOpen(true)}><SlidersHorizontal size={19}/>Details</button></nav>
-    <Modal title="Component library" open={catalogOpen} onChange={setCatalogOpen}><CatalogPanel compact models={catalog.models} selectedId={model.id} onSelect={select}/></Modal>
+    <Modal title="Component library" open={catalogOpen} onChange={setCatalogOpen}><CatalogPanel compact models={catalog.models} selectedId={model.id} onSelect={select} onPublisherOpen={() => { setCatalogOpen(false); setPublisherOpen(true); }}/></Modal>
+    <Modal title="Published openGrid CAD catalog" open={publisherOpen} onChange={setPublisherOpen}><PublisherBrowser active={publisherOpen}/></Modal>
     <Modal title="Component details" open={detailsOpen} onChange={setDetailsOpen}><ModelInspector model={model} tab={tab} setTab={setTab} notify={setToast}/></Modal>
-    <Modal title="About openGrid Studio" open={aboutOpen} onChange={setAboutOpen}><div className="about-content"><div className="about-mark"><Logo/></div><h3>A place for physical ideas.</h3><p>Explore real, reproducible CAD exports from the openGrid library. Every model in this viewer was generated from source and passed software geometry checks.</p><div className="about-facts"><div><CheckCircle2 size={17}/> 8 source-generated models</div><div><ShieldCheck size={17}/> 3D geometry validated</div><div><Info size={17}/> Physical fit and load tests pending</div></div><a href={repoUrl} className="secondary-action full" target="_blank" rel="noopener noreferrer">View repository <ExternalLink size={14}/></a></div></Modal>
+    <Modal title="About openGrid Studio" open={aboutOpen} onChange={setAboutOpen}><div className="about-content"><div className="about-mark"><Logo/></div><h3>A place for physical ideas.</h3><p>Explore real, reproducible CAD exports from the openGrid library. Every model in this viewer was generated from source and passed software geometry checks.</p><div className="about-facts"><div><CheckCircle2 size={17}/> 24 locally verified 3D models</div><div><ShieldCheck size={17}/> 3D geometry validated</div><div><Info size={17}/> Physical fit and load tests pending</div></div><a href={repoUrl} className="secondary-action full" target="_blank" rel="noopener noreferrer">View repository <ExternalLink size={14}/></a></div></Modal>
     {toast && <div className="toast" role="status"><Check size={16}/>{toast}</div>}
   </div>;
 }

@@ -322,3 +322,25 @@ button { border: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
 }
+
+
+/* Lightweight indexed publisher catalog, separate from locally hosted 3D geometry. */
+.publisher-open-button { width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line-bright); background: var(--raised); color: var(--text); border-radius: 9px; padding: 11px 7px; font-size: 12px; font-weight: 650; }
+.publisher-open-button:hover { border-color: var(--accent); }
+.publisher-browser { display: flex; flex-direction: column; gap: 12px; max-height: 78dvh; overflow: auto; padding: 4px 12px 18px; }
+.publisher-notice { color: var(--muted); font-size: 12px; line-height: 1.55; margin: 0; }
+.publisher-search { display: flex; align-items: center; gap: 9px; padding: 11px; border: 1px solid var(--line-bright); border-radius: 9px; }
+.publisher-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text); }
+.publisher-filters { display: flex; gap: 10px; flex-wrap: wrap; }
+.publisher-filters label { font-size: 11px; color: var(--muted); display: flex; flex: 1; min-width: 140px; flex-direction: column; gap: 5px; }
+.publisher-filters select { border-radius: 7px; background: var(--raised); color: var(--text); border: 1px solid var(--line); padding: 9px; max-width: 100%; }
+.publisher-result-count { color: var(--muted); font-size: 11px; }
+.publisher-results { display: flex; flex-direction: column; gap: 8px; }
+.publisher-result { padding: 12px; border: 1px solid var(--line); border-radius: 9px; display: flex; flex-direction: column; gap: 5px; }
+.publisher-result-heading { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; font-size: 13px; }
+.publisher-chip { color: var(--muted); font-size: 10px; border: 1px solid var(--line); border-radius: 6px; padding: 3px 5px; }
+.publisher-result-meta, .publisher-file-formats { font-size: 11px; color: var(--muted); }
+.publisher-file-formats { display: flex; align-items: center; gap: 6px; }
+.publisher-result a { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: var(--accent); margin-top: 3px; }
+.publisher-pagination { display: flex; justify-content: space-between; gap: 6px; align-items: center; font-size: 11px; }
+.publisher-pagination button { background: var(--raised); border: 1px solid var(--line-bright); color: var(--text); padding: 9px 15px; border-radius: 7px; }
