@@ -33,41 +33,59 @@ function DisplayObject({ model, wireframe, lightMode }: {
 }) {
   const { scene } = useGLTF(assetUrl(model.model));
 
-  // A softly emissive, matte CAD material guarantees legible color even on
-  // mobile GPUs where a face receives very little direct illumination.
+  // Preserve mechanical face contrast without the previous emissive washout.
   const material = useMemo(() => {
     const color = new THREE.Color(model.accent);
-    if (lightMode) color.lerp(new THREE.Color('#2b4c55'), 0.2);
+    color.lerp(new THREE.Color(lightMode ? '#365466' : '#426276'), lightMode ? 0.35 : 0.25);
     return new THREE.MeshStandardMaterial({
       color,
-      emissive: color,
-      emissiveIntensity: 0.24,
-      metalness: 0.04,
-      roughness: 0.58,
+      metalness: 0.03,
+      roughness: 0.8,
+      flatShading: true,
       wireframe,
       side: THREE.DoubleSide,
+      polygonOffset: true,
+      polygonOffsetFactor: 1,
+      polygonOffsetUnits: 1,
     });
   }, [lightMode, model.accent, wireframe]);
-
   useEffect(() => () => material.dispose(), [material]);
 
-  const object = useMemo(() => {
-    const clone = scene.clone(true);
-    clone.traverse((node) => {
-      if (node instanceof THREE.Mesh) {
-        // GLB exports may omit NORMAL; compute it once on the shared geometry.
-        if (!node.geometry.getAttribute('normal')) node.geometry.computeVertexNormals();
-        node.material = material;
-        // CAD inspection needs consistent visibility, even on back-facing parts.
-        node.castShadow = false;
-        node.receiveShadow = false;
+  // Thin crease lines at sharp angles reveal the actual source CAD profile.
+  const edgeMaterial = useMemo(() => new THREE.LineBasicMaterial({
+    color: lightMode ? '#223946' : '#183743',
+    transparent: true,
+    opacity: lightMode ? 0.38 : 0.46,
+    depthTest: true,
+    depthWrite: false,
+  }), [lightMode]);
+  useEffect(() => () => edgeMaterial.dispose(), [edgeMaterial]);
+
+  const prepared = useMemo(() => {
+    const object = scene.clone(true);
+    const edgeGeometries: THREE.EdgesGeometry[] = [];
+    object.traverse((node) => {
+      if (!(node instanceof THREE.Mesh)) return;
+      if (!node.geometry.getAttribute('normal')) node.geometry.computeVertexNormals();
+      node.material = material;
+      node.castShadow = false;
+      node.receiveShadow = false;
+      if (!wireframe) {
+        const edges = new THREE.EdgesGeometry(node.geometry, 38);
+        edgeGeometries.push(edges);
+        const lines = new THREE.LineSegments(edges, edgeMaterial);
+        lines.renderOrder = 1;
+        node.add(lines);
       }
     });
-    return clone;
-  }, [scene, material]);
+    return { object, edgeGeometries };
+  }, [scene, material, edgeMaterial, wireframe]);
+  useEffect(() => () => {
+    prepared.edgeGeometries.forEach((geometry) => geometry.dispose());
+  }, [prepared]);
 
-  // Trimesh exports preserve millimetres and Z-up. Rotate to Three.js Y-up.
-  return <Center><group rotation={[-Math.PI / 2, 0, 0]}><primitive object={object} /></group></Center>;
+  // Source meshes use millimetres and Z-up. Display in Three.js Y-up.
+  return <Center><group rotation={[-Math.PI / 2, 0, 0]}><primitive object={prepared.object} /></group></Center>;
 }
 
 function CameraPosition({ model, view, resetVersion }: {
@@ -120,13 +138,14 @@ export default function ModelViewer({
       camera={{ fov: 42, near: 0.1, far: 4000, position: [150, 125, 165] }}
       dpr={[1, 1.65]}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+      onCreated={({ gl }) => { gl.toneMappingExposure = 0.9; }}
       aria-label={`Interactive 3D model of ${model.name}. Drag to orbit and scroll or pinch to zoom.`}
     >
-      <ambientLight intensity={0.95} />
-      <hemisphereLight intensity={1.55} groundColor={lightMode ? '#829d9c' : '#3d5b62'} color="#fffaf4" />
-      <directionalLight position={[120, 170, 130]} intensity={3} color="#fff6e9" />
-      <directionalLight position={[-140, 85, -95]} intensity={1.5} color="#b9e5ff" />
-      <directionalLight position={[50, -100, -140]} intensity={0.8} color="#d3fff1" />
+      <ambientLight intensity={0.45} />
+      <hemisphereLight intensity={0.85} groundColor={lightMode ? '#809595' : '#253f4a'} color="#f5f9ff" />
+      <directionalLight position={[110, 145, 95]} intensity={1.6} color="#ffffff" />
+      <directionalLight position={[-105, 65, -115]} intensity={0.55} color="#b9def0" />
+      <directionalLight position={[20, -90, 80]} intensity={0.22} color="#d3f5e9" />
       {grid && <gridHelper
         args={[400, 40, lightMode ? '#94b3b1' : '#476872', lightMode ? '#c1d2d0' : '#2a454f']}
         position={[0, -Math.max(...model.boundsInches) * 25.4 * 0.58, 0]}

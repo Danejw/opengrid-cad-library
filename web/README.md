@@ -24,3 +24,7 @@ The Vite project has the repository-specific base path `/opengrid-cad-library/`.
 The catalog's `cadValid` and `meshWatertight` flags come from the actual Python pipeline. `fitVerified`, `loadTested`, and `slicerVerified` remain false until corresponding tests have been performed. Parameter controls for the cable hook generate a **build request JSON**, and the displayed model remains the last CAD-validated geometry. A user can run the existing GitHub Actions workflow with matching parameter inputs to generate a new artifact. No browser-embedded CAD generation or printer control is implied.
 
 All models and sources are public because the repository is public.
+
+## CAD preview fidelity
+
+The studio includes 10 source-generated CAD parts, including bare Full/Lite directional modeling snaps and separate openConnect-headed snaps. Viewer contour lines and neutral matte materials are a visualization aid only. The exported GLB is checked against the source mesh for triangle count, physical bounds, and volume; original CAD files remain available under Files. Publisher-derived parametric geometry and independently designed prototypes are labeled separately. Real slicer and fit testing are still pending.

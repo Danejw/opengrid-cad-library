@@ -39,8 +39,16 @@ def main():
     args=ap.parse_args()
     folder=Path(args.dir)
     paths=sorted(folder.glob("*.3mf"))
-    if len(paths)<3:
-        raise SystemExit("Expected 2 original native snap variants plus 1 receiver plate, each 3MF")
+    required = {
+        "opengrid_bare_snap_lite.3mf",
+        "opengrid_bare_snap_full.3mf",
+        "opengrid_openconnect_snap_lite.3mf",
+        "opengrid_openconnect_snap_full.3mf",
+        "opengrid_openconnect_receiver_2x1.3mf",
+    }
+    missing = required - {p.name for p in paths}
+    if missing:
+        raise SystemExit(f"Missing source-generated native interfaces: {sorted(missing)}")
     results=[inspect_mesh(p) for p in paths]
     (folder/"verification.json").write_text(json.dumps(results,indent=2)+"\n")
     print(json.dumps(results,indent=2))

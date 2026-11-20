@@ -31,9 +31,15 @@ def test_native_source_files_are_unmodified():
 
 def test_full_lite_and_receiver_are_present():
     configs=profile_commands("all")
-    assert len(configs)==3
+    assert len(configs)==5
     profiles={filename:params for filename,_,params in configs}
     assert profiles["opengrid_openconnect_snap_lite.stl"]["snap_thickness"]==4.0
+    assert profiles["opengrid_openconnect_snap_lite.stl"]["generate_snap"]=="openConnect"
+    assert profiles["opengrid_bare_snap_lite.stl"]["snap_thickness"]==3.4
+    assert profiles["opengrid_bare_snap_lite.stl"]["generate_snap"]=="Bare"
+    assert profiles["opengrid_bare_snap_full.stl"]["snap_thickness"]==6.8
+    assert profiles["opengrid_bare_snap_full.stl"]["generate_snap"]=="Bare"
+    assert profiles["opengrid_bare_snap_lite.stl"]["generate_screw"]=="None"
     assert profiles["opengrid_openconnect_snap_full.stl"]["snap_thickness"]==6.8
     assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_horizontal_size"]==70
     assert profiles["opengrid_openconnect_receiver_2x1.stl"]["plate_vertical_size"]==42

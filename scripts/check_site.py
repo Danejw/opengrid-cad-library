@@ -15,7 +15,13 @@ def validate(dist: Path) -> None:
     assets = dist / 'assets'
     catalog = json.loads((assets / 'catalog.json').read_text(encoding='utf-8'))
     models = catalog['models']
-    assert len(models) == 8, f'Expected all 8 source CAD designs, got {len(models)}'
+    assert len(models) == 10, f'Expected all 10 source CAD designs, got {len(models)}'
+    by_id = {m['id']: m for m in models}
+    assert {'og-bare-snap-lite-v1', 'og-bare-snap-full-v1'} <= set(by_id)
+    assert 'Bare' in by_id['og-bare-snap-full-v1']['name']
+    assert 'Bare' in by_id['og-bare-snap-lite-v1']['name']
+    assert 'openConnect' in by_id['og-oc-snap-full-v1']['name']
+    assert 'openConnect' in by_id['og-oc-snap-lite-v1']['name']
     assert len(set(m['id'] for m in models)) == len(models)
     for model in models:
         assert model['validation']['cadValid'] is True
