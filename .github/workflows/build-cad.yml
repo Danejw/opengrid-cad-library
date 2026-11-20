@@ -75,6 +75,8 @@ jobs:
           python cad/opengrid/validate_accessory.py
       - name: Verify and stage original David D Full and Lite boards
         run: python scripts/prepare_official_boards.py
+      - name: Verify and stage first-party David D accessories
+        run: python scripts/prepare_official_accessories.py
       - name: Phase 3 - verify meshes and publish visual previews
         run: python cad/opengrid/release_pipeline.py --openscad "$OPENSCAD_BIN"
       - name: Upload unverified models for diagnosis when build fails

@@ -1,0 +1,195 @@
+{
+  "schema_version": 1,
+  "publisher": "David D (@DavidD)",
+  "license": "CC BY 4.0",
+  "models": [
+    {
+      "id": "og-official-minimal-hook",
+      "name": "Official Minimal Hook",
+      "filename": "openGrid Minimal Hook",
+      "sourceModel": 1217962,
+      "kind": "Accessories",
+      "interface": "openGrid mounting hook",
+      "tagline": "David D original compact hook",
+      "accent": "#80c6b1",
+      "description": "Original openGrid minimal hook from David D, imported without altering source geometry.",
+      "sourcePage": "https://www.printables.com/model/1217962/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid Minimal Hook.3mf"
+    },
+    {
+      "id": "og-official-wall-mount",
+      "name": "Official Full Wall Mount",
+      "filename": "openGrid Wall Mount",
+      "sourceModel": 1214361,
+      "kind": "Connectors",
+      "interface": "openGrid Full wall mount",
+      "tagline": "Publisher-authored wall mounting component",
+      "accent": "#c1d0af",
+      "description": "Original Full openGrid wall mount from the base publisher model package.",
+      "sourcePage": "https://www.printables.com/model/1214361/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid Wall Mount.3mf"
+    },
+    {
+      "id": "og-official-lite-wall-mount",
+      "name": "Official Lite Wall Mount",
+      "filename": "openGrid Lite Wall Mount",
+      "sourceModel": 1214361,
+      "kind": "Connectors",
+      "interface": "openGrid Lite wall mount",
+      "tagline": "Original Lite mounting hardware",
+      "accent": "#abc6d9",
+      "description": "Original Lite openGrid wall mount from David D's base model package.",
+      "sourcePage": "https://www.printables.com/model/1214361/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid Lite Wall Mount.3mf"
+    },
+    {
+      "id": "og-official-color-cover",
+      "name": "Official Color Cover Snap",
+      "filename": "openGrid Color_Cover Snap",
+      "sourceModel": 1214361,
+      "kind": "Connectors",
+      "interface": "openGrid decorative cover snap",
+      "tagline": "Original cover and snap accessory",
+      "accent": "#e3cda1",
+      "description": "Publisher's original snap for the color cover accessory system.",
+      "sourcePage": "https://www.printables.com/model/1214361/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid Color_Cover Snap.3mf"
+    },
+    {
+      "id": "og-official-multiconnect-directional",
+      "name": "Official Multiconnect Directional Snap v2",
+      "filename": "openGrid Multiconnect Directional Snap v2",
+      "sourceModel": 1214361,
+      "kind": "Connectors",
+      "interface": "openGrid Multiconnect directional snap",
+      "tagline": "David D Multiconnect mounting connector",
+      "accent": "#b4c2ec",
+      "description": "Publisher's native Multiconnect directional snap, version 2.",
+      "sourcePage": "https://www.printables.com/model/1214361/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid Multiconnect Directional Snap v2.3mf"
+    },
+    {
+      "id": "og-official-m3-nut-snap",
+      "name": "Official M3 Nut Snap",
+      "filename": "openGrid M3 Nut Snap",
+      "sourceModel": 1217921,
+      "kind": "Connectors",
+      "interface": "openGrid M3 nut snap",
+      "tagline": "David D metric fastener connector",
+      "accent": "#cbb9da",
+      "description": "Original openGrid connector incorporating M3 nut mounting geometry.",
+      "sourcePage": "https://www.printables.com/model/1217921/files",
+      "source_file": "vendor/davidd-opengrid/accessories/openGrid M3 Nut Snap.3mf"
+    }
+  ],
+  "files": [
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Minimal Hook.3mf",
+      "sourceModel": 1217962,
+      "printables_file_id": 5064266,
+      "size": 78248,
+      "sha256": "0fdc875e10c7ec329f734e780bf43cbd3449aa96dfbd233a44d2174e978ee811",
+      "url": "https://files.printables.com/media/prints/1217962/stls/9138988_c1e8a70f-c11d-4505-8c99-e3eec623dc0c_7f4b18bd-f362-4546-a0d0-e1bd65dbdb7c/opengrid-minimal-hook.3mf",
+      "git_blob_sha": "1ae503c5a05b85e9d437c577e9b19cfa941ee0a1"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Minimal Hook.step",
+      "sourceModel": 1217962,
+      "printables_file_id": 5064267,
+      "size": 174103,
+      "sha256": "86b5b91fd092e52a458d350172ae33d456a1d87f54b6bc6f0f05c98e41e30281",
+      "url": "https://files.printables.com/media/prints/1217962/stls/9138987_fec61ed2-477f-4cbb-ae0a-ae503ebddd96_733c2e45-5936-46e0-8ee7-3802af5ea9c9/opengrid-minimal-hook.step",
+      "git_blob_sha": "0df1734d8b067798492260a09ed7450611c237b9"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Wall Mount.3mf",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064423,
+      "size": 16769,
+      "sha256": "85ffcdd7fdd71585c63c92ecd06b195634f0801c09ead89dfc484f93fcd5b515",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139293_773b48bd-aabe-419a-8cf5-a4b48915445b_8a0aebb6-ce2a-4b83-a7dc-c315e2001e80/opengrid-wall-mount.3mf",
+      "git_blob_sha": "0ea782c68fd04820cd009dca754875a26408fe36"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Wall Mount.step",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064420,
+      "size": 101951,
+      "sha256": "c2397fd12c1be7a27fa33db96d68b9ba99cdc1b800539c428c3a81877d77f520",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139289_db6b2e62-462c-49e0-bed1-49ba753c798f_e33f6cb9-2e1d-494b-9447-91e6ff7a6771/opengrid-wall-mount.step",
+      "git_blob_sha": "4c60674b3566531f7b960b7b554f11be66781007"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Lite Wall Mount.3mf",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064439,
+      "size": 16838,
+      "sha256": "3c1cf80ef8fe6022488fb4c53aa75fab1ed79ff19c2a3019ba429253577b5cbe",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139309_4f2b4fd6-7951-4134-820f-2c2ebff6791f_ea776a3b-8596-4062-abb6-65da3b7357c1/opengrid-lite-wall-mount.3mf",
+      "git_blob_sha": "8915edab65fe107603f37ef609bfd5a9df81b02d"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Lite Wall Mount.step",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064435,
+      "size": 100043,
+      "sha256": "ffd8735cde068255e18ea803fdca4833927495e3287c1525227f0edd778ed00d",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139305_8c6359b7-dd0b-4028-8979-eb4b63e2ba4d_7befa862-1b37-464b-be9c-90de24bf3f85/opengrid-lite-wall-mount.step",
+      "git_blob_sha": "bbeb067336d2aa32eb3755f9dbe6c679fe6a4a16"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Color_Cover Snap.3mf",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064448,
+      "size": 7309,
+      "sha256": "e6fb2ed1c6c3de6219e6702008ef79228da04d9bbb85c66b56851ea44f081d1a",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139318_9f12a33d-4a4f-4554-9792-b18455d27b7a_95809b09-dd5a-49c3-9e7c-5103a76de353/opengrid-color_cover-snap.3mf",
+      "git_blob_sha": "030eac4bc0f1b5c38df86b31890b3f6736c583cc"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Color_Cover Snap.step",
+      "sourceModel": 1214361,
+      "printables_file_id": 5064446,
+      "size": 77866,
+      "sha256": "bc812fb2dbd14a5fdc2614778512f522c537c148d151640b59c7377c86a21a51",
+      "url": "https://files.printables.com/media/prints/1214361/stls/9139316_07fc4445-83e4-4201-b82f-a95b90212d01_45f83245-22fc-459e-9ca9-9542824df3a9/opengrid-color_cover-snap.step",
+      "git_blob_sha": "b95f7c2699720638d4445949ba9dc24a7fb3c4f2"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Multiconnect Directional Snap v2.3mf",
+      "sourceModel": 1214361,
+      "printables_file_id": 5784089,
+      "size": 156828,
+      "sha256": "7337554349604ed4a52ebd38dda448641535bbb21358768812cc18b62d6322e0",
+      "url": "https://files.printables.com/media/prints/7bdc7c35-ef48-4d39-9de2-09eba3dd340e/stls/10361451_833fe0a7-f3be-4947-8cf9-19d45d60a289_0ee519fd-408f-4bd4-81c2-7c9b9dc7df6f/opengrid-multiconnect-directional-snap-v2.3mf",
+      "git_blob_sha": "80bec5f35049ccb5ffa2a1c612dec4db8e90b512"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid Multiconnect Directional Snap v2.step",
+      "sourceModel": 1214361,
+      "printables_file_id": 5784093,
+      "size": 305918,
+      "sha256": "e621a188f98e37c937faca561b368a4125fca11b978e6da3e3cdd54f721a1995",
+      "url": "https://files.printables.com/media/prints/051cdc1a-2ca4-45a5-8966-3f19cb1ea30c/stls/10361457_57e9a8ed-1537-4f89-9360-28b34ab6b077_70058f1f-aa1e-44a8-9b85-65e54b1807b2/opengrid-multiconnect-directional-snap-v2.step",
+      "git_blob_sha": "276c17438610086c385ed1234b31dde1f067c566"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid M3 Nut Snap.3mf",
+      "sourceModel": 1217921,
+      "printables_file_id": 5805929,
+      "size": 46785,
+      "sha256": "93ef2ab78b91b689f03d4bcf722d60a9a3e84693b45d9a0ad4ce3083085096fd",
+      "url": "https://files.printables.com/media/prints/8b74563f-068c-4187-aaa3-5ab5d04b36b5/stls/10402679_76be84ee-b69e-4ad0-a24b-3dad8e441888_1c672692-5381-4cc8-b11e-f648b8c1e116/opengrid-m3-nut-snap.3mf",
+      "git_blob_sha": "c476807fe98872c8195474ce539d5d89e4b1f58e"
+    },
+    {
+      "path": "vendor/davidd-opengrid/accessories/openGrid M3 Nut Snap.step",
+      "sourceModel": 1217921,
+      "printables_file_id": 5805934,
+      "size": 155996,
+      "sha256": "2bd0390b29db23cf6dc3e0846f9fd6ef04e705ed0396b01cd01bbbf1e48a8545",
+      "url": "https://files.printables.com/media/prints/a7d5ed4b-e4cb-49f2-a6cc-be35fe9daecb/stls/10402675_9f461a20-cd33-4f69-88e8-1704a45ec4db_674f1062-d156-47b1-a346-1429d2ccd1ce/opengrid-m3-nut-snap.step",
+      "git_blob_sha": "ab654cd2259f5ce8066d82bd901d2ece9a236369"
+    }
+  ]
+}

@@ -32,3 +32,7 @@ The studio includes 10 source-generated CAD parts, including bare Full/Lite dire
 ## Official openGrid boards
 
 Four original David D Full/Lite board files (2×2 and 4×4) are now in the **Boards** category. Their 3MF sources are imported unchanged from the Printables publisher listing, with pinned SHA-256 hashes, file IDs, source URLs, and CC BY 4.0 attribution in `vendor/davidd-opengrid/manifest.json`. The same models are converted to independent, validated GLB previews. Three original STEP files are included; Full 4×4 STEP can be obtained on the publisher's listing. The simple pitch coupon remains clearly categorized as a **Prototype**, and must never stand in for the original board.
+
+## Original published accessories
+
+Six first-party David D models are now included: Minimal Hook, Full/Lite Wall Mount, Color Cover Snap, Multiconnect Directional Snap v2, and M3 Nut Snap. Each has original 3MF + STEP and a checked source-file manifest under `vendor/davidd-opengrid/accessories-manifest.json`. They retain publisher license/attribution, and fit/load remain unverified. Gridfinity shelves are excluded due to their separate noncommercial license.
