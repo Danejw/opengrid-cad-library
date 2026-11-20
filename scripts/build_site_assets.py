@@ -81,7 +81,7 @@ def export_assets(output_dir: Path, target_dir: Path, revision: str = 'local') -
         shutil.copyfile(preview_src, preview_dest)
         formats = {input_file.suffix[1:].upper(): f'downloads/{input_file.name}'}
         shutil.copyfile(input_file, exports_dir / input_file.name)
-        step = output_dir / (input_file.stem + '.step')
+        step = input_file.with_suffix('.step') if config['type'] == 'Boards' else output_dir / (input_file.stem + '.step')
         if step.is_file():
             shutil.copyfile(step, exports_dir / step.name)
             formats['STEP'] = f'downloads/{step.name}'
